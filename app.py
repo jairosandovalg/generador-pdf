@@ -6,10 +6,13 @@ from reportlab.lib import colors
 import io
 import os
 
-app = Flask(__name__)
+# 🛠️ CORRECCIÓN DE RUTAS: Definimos la ruta absoluta del proyecto para Linux/Render
+base_dir = os.path.abspath(os.path.dirname(__file__))
+template_dir = os.path.join(base_dir, 'templates')
+
+app = Flask(__name__, template_folder=template_dir)
 
 def crear_pdf_dinamico(buffer, titulo_usuario, opcion_seleccionada):
-    # Crear el documento usando el buffer en memoria
     doc = SimpleDocTemplate(
         buffer,
         pagesize=letter,
@@ -32,14 +35,17 @@ def crear_pdf_dinamico(buffer, titulo_usuario, opcion_seleccionada):
 
     story = []
 
-    # 🖼️ COLOCO LA IMAGEN AL INICIO DEL DOCUMENTO
-    ruta_imagen = "logo.jpg"
+    # 🖼️ RUTA ABSOLUTA PARA LA IMAGEN: Evita que falle en entornos de producción
+    ruta_imagen = os.path.join(base_dir, "logo.jpg")
+    
     if os.path.exists(ruta_imagen):
-        # Ajusta el ancho (width) y alto (height) en puntos (1 pulgada = 72 puntos)
-        logo = Image(ruta_imagen, width=120, height=50)
-        logo.hAlign = 'LEFT' # Alineación de la imagen
-        story.append(logo)
-        story.append(Spacer(1, 15)) # Espacio debajo de la imagen
+        try:
+            logo = Image(ruta_imagen, width=120, height=50)
+            logo.hAlign = 'LEFT'
+            story.append(logo)
+            story.append(Spacer(1, 15))
+        except Exception as e:
+            print(f"Error al procesar la imagen: {e}")
     else:
         print(f"Advertencia: No se encontró la imagen en {ruta_imagen}")
 
@@ -52,7 +58,6 @@ def crear_pdf_dinamico(buffer, titulo_usuario, opcion_seleccionada):
     
     story.append(Paragraph(texto_contenido, estilo_cuerpo))
     
-    # Construir el PDF
     doc.build(story)
 
 @app.route('/')
@@ -68,13 +73,8 @@ def generar():
     print(f"Título: {titulo}")
     print(f"Opción Seleccionada: {opcion}\n-----------------------\n")
     
-    # Crear un buffer en memoria para evitar guardar archivos físicos en el servidor
     buffer = io.BytesIO()
-    
-    # Generar el PDF directamente en el buffer
     crear_pdf_dinamico(buffer, titulo, opcion)
-    
-    # Mover el puntero del buffer al inicio para que pueda ser leído por Flask
     buffer.seek(0)
     
     return send_file(
