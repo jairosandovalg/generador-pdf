@@ -1,16 +1,45 @@
 from flask import Flask, render_template, request, send_file
+from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
+from datetime import datetime
 import io
 import os
 
-# 🛠️ CORRECCIÓN DE RUTAS: Definimos la ruta absoluta del proyecto para Linux/Render
+# 🔌 Cargar las variables de entorno desde el archivo .env
+load_dotenv()
+
+# 🛠️ Configuración de rutas absolutas del proyecto
 base_dir = os.path.abspath(os.path.dirname(__file__))
 template_dir = os.path.join(base_dir, 'templates')
 
 app = Flask(__name__, template_folder=template_dir)
+
+# 🗄️ Configuración de la Base de Datos (Supabase / local)
+# Si no encuentra DATABASE_URL en el .env, usará un archivo SQLite local por seguridad
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', f'sqlite:///{os.path.join(base_dir, "reportes.db")}')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+# 📊 Modelo de Datos: Estructura de la tabla para el posterior análisis
+class Reporte(db.Model):
+    __tablename__ = 'reportes'
+    id = db.Column(db.Integer, primary_key=True)
+    titulo = db.Column(db.String(150), nullable=False)
+    opcion_seleccionada = db.Column(db.String(100), nullable=False)
+    fecha_creacion = db.Column(db.DateTime, default=datetime.utcnow)  # Temporal para análisis cronológico
+
+    def __repr__(self):
+        return f'<Reporte {self.id} - {self.opcion_seleccionada}>'
+
+# Creación automática de la tabla en Supabase si no existe
+with app.app_context():
+    db.create_all()
+
 
 def crear_pdf_dinamico(buffer, titulo_usuario, opcion_seleccionada):
     doc = SimpleDocTemplate(
@@ -35,7 +64,7 @@ def crear_pdf_dinamico(buffer, titulo_usuario, opcion_seleccionada):
 
     story = []
 
-    # 🖼️ RUTA ABSOLUTA PARA LA IMAGEN: Evita que falle en entornos de producción
+    # Ruta absoluta de la imagen
     ruta_imagen = os.path.join(base_dir, "logo.jpg")
     
     if os.path.exists(ruta_imagen):
@@ -46,10 +75,7 @@ def crear_pdf_dinamico(buffer, titulo_usuario, opcion_seleccionada):
             story.append(Spacer(1, 15))
         except Exception as e:
             print(f"Error al procesar la imagen: {e}")
-    else:
-        print(f"Advertencia: No se encontró la imagen en {ruta_imagen}")
 
-    # Contenido del reporte
     story.append(Paragraph(f"Reporte: {titulo_usuario}", estilo_titulo))
     story.append(Spacer(1, 10))
     
@@ -57,8 +83,8 @@ def crear_pdf_dinamico(buffer, titulo_usuario, opcion_seleccionada):
                       f"Los datos han sido procesados y almacenados correctamente en el servidor en la sesión actual."
     
     story.append(Paragraph(texto_contenido, estilo_cuerpo))
-    
     doc.build(story)
+
 
 @app.route('/')
 def index():
@@ -69,10 +95,21 @@ def generar():
     titulo = request.form.get('titulo')
     opcion = request.form.get('tipo_opcion')
     
-    print(f"\n--- Datos Recibidos ---")
+    print(f"\n--- Procesando Datos ---")
     print(f"Título: {titulo}")
-    print(f"Opción Seleccionada: {opcion}\n-----------------------\n")
+    print(f"Opción: {opcion}")
     
+    # 💾 1. ALMACENAR EN LA BASE DE DATOS DE SUPABASE
+    try:
+        nuevo_reporte = Reporte(titulo=titulo, opcion_seleccionada=opcion)
+        db.session.add(nuevo_reporte)
+        db.session.commit()
+        print("✅ Registro guardado exitosamente en Supabase.")
+    except Exception as e:
+        db.session.rollback()
+        print(f"❌ Error al guardar en la base de datos: {e}")
+    
+    # 📄 2. GENERAR Y RETORNAR EL ARCHIVO PDF
     buffer = io.BytesIO()
     crear_pdf_dinamico(buffer, titulo, opcion)
     buffer.seek(0)
@@ -83,6 +120,21 @@ def generar():
         download_name="reporte_configurado.pdf",
         mimetype="application/pdf"
     )
+
+# 🔓 Endpoint API: Para extraer los datos con Pandas para tu análisis
+@app.route('/api/datos')
+def obtener_datos():
+    reportes = Reporte.query.all()
+    resultado = [
+        {
+            "id": r.id, 
+            "titulo": r.titulo, 
+            "opcion": r.opcion_seleccionada, 
+            "fecha": r.fecha_creacion.strftime('%Y-%m-%d %H:%M:%S')
+        } 
+        for r in reportes
+    ]
+    return {"data": resultado}
 
 if __name__ == '__main__':
     app.run(debug=True)
