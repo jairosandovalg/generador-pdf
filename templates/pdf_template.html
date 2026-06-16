@@ -249,6 +249,59 @@
     </tbody>
 </table>    
 
+        
+<hr>
+<h4>5. CAJA MANUAL</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Elemento</th>
+            <th>Estado</th>
+            <th style="text-align: center; width: 8%;">OK</th>
+            <th style="text-align: center; width: 8%;">NOK</th>
+            <th>Solución</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% set elementos_caja_manual = [
+            ('Embrague (olor, juego en el pedal, desgaste)', 'embrague', 'solucion_embrague'),
+            ('Engrase en marchas / Sincronización', 'marchas_sincro', 'solucion_marchas_sincro')
+        ] %}
+        
+        {% for item, name_val, name_sol in elementos_caja_manual %}
+        <tr>
+            <td>{{ item }}</td>
+            <td>Funcionamiento</td>
+            
+            <td style="text-align: center;">
+                {% if es_pdf %}
+                    {% if datos_post and datos_post.get(name_val) == 'OK' %}✓{% endif %}
+                {% else %}
+                    <input type="radio" name="{{ name_val }}" value="OK">
+                {% endif %}
+            </td>
+            
+            <td style="text-align: center;">
+                {% if es_pdf %}
+                    {% if datos_post and datos_post.get(name_val) == 'NOK' %}✗{% endif %}
+                {% else %}
+                    <input type="radio" name="{{ name_val }}" value="NOK">
+                {% endif %}
+            </td>
+            
+            <td>
+                {% if es_pdf %}
+                    {{ datos_post.get(name_sol, '') if datos_post else '' }}
+                {% else %}
+                    <input type="text" name="{{ name_sol }}" class="form-control">
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
 
 
 
@@ -267,9 +320,18 @@
 
 
         
+
+
+
+
+
+
+
+
+
+
+        
     {% set textos = [
-        ('4. CAJA AUTOMÁTICA', 'caja_auto'),
-        ('5. CAJA MANUAL', 'caja_manual'),
         ('6. SISTEMA DE FRENOS', 'frenos'),
         ('7. DIRECCIÓN Y SUSPENSIÓN', 'direccion'),
         ('Observaciones', 'observaciones')
