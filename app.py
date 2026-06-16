@@ -1,7 +1,11 @@
-from flask import render_template
+from flask import Flask, render_template, request, send_file
 from weasyprint import HTML
 import tempfile
 
+# 1. Creamos la instancia de la aplicación Flask (Esencial para que Gunicorn la encuentre)
+app = Flask(__name__)
+
+# 2. Ahora sí podemos usar el decorador @app.route porque 'app' ya existe
 @app.route('/generar', methods=['POST'])
 def generar():
 
@@ -27,3 +31,7 @@ def generar():
         as_attachment=True,
         download_name="Prueba_Ruta_VW.pdf"
     )
+
+# Opcional: Esto te permite correr el archivo localmente con 'python app.py' para hacer pruebas
+if __name__ == '__main__':
+    app.run(debug=True)
