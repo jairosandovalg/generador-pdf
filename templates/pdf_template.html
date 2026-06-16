@@ -302,27 +302,113 @@
 </table>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<hr>
+<h4>6. SISTEMA DE FRENOS</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Elemento</th>
+            <th>Estado</th>
+            <th style="text-align: center; width: 8%;">OK</th>
+            <th style="text-align: center; width: 8%;">NOK</th>
+            <th>Solución</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% set elementos_frenos = [
+            ('ABS test', 'abs_test', 'solucion_abs_test'),
+            ('Desviación al frenar / vibración / eficiencia', 'desviacion_freno', 'solucion_desviacion_freno'),
+            ('Ruidos (Chirrido, silbido, etc)', 'ruidos_freno', 'solucion_ruidos_freno')
+        ] %}
         
+        {% for item, name_val, name_sol in elementos_frenos %}
+        <tr>
+            <td>{{ item }}</td>
+            <td>Funcionamiento</td>
+            
+            <td style="text-align: center;">
+                {% if es_pdf %}
+                    {% if datos_post and datos_post.get(name_val) == 'OK' %}✓{% endif %}
+                {% else %}
+                    <input type="radio" name="{{ name_val }}" value="OK">
+                {% endif %}
+            </td>
+            
+            <td style="text-align: center;">
+                {% if es_pdf %}
+                    {% if datos_post and datos_post.get(name_val) == 'NOK' %}✗{% endif %}
+                {% else %}
+                    <input type="radio" name="{{ name_val }}" value="NOK">
+                {% endif %}
+            </td>
+            
+            <td>
+                {% if es_pdf %}
+                    {{ datos_post.get(name_sol, '') if datos_post else '' }}
+                {% else %}
+                    <input type="text" name="{{ name_sol }}" class="form-control">
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-
-
+<hr>
+<h4>7. DIRECCIÓN Y SUSPENSIÓN</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Elemento</th>
+            <th>Estado</th>
+            <th style="text-align: center; width: 8%;">OK</th>
+            <th style="text-align: center; width: 8%;">NOK</th>
+            <th>Solución</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% set elementos_direccion_suspension = [
+            ('Regulación de altura (allroad/A8/A5 etc.) funcionamiento (opcional)', 'regulacion_altura', 'solucion_regulacion_altura'),
+            ('Vibración, juego de timón, ruido de palieres', 'vibracion_timon', 'solucion_vibracion_timon'),
+            ('Ruidos o zumbidos de rodamiento de ruedas / terminales o brazos de suspensión', 'ruidos_rodamiento', 'solucion_ruidos_rodamiento'),
+            ('Timón alineado estando las ruedas en posición recta', 'timon_alineado', 'solucion_timon_alineado'),
+            ('El vehículo jala al lado', 'vehiculo_jala', 'solucion_vehiculo_jala'),
+            ('Alineamiento necesario', 'alineamiento_nec', 'solucion_alineamiento_nec'),
+            ('Balancear las ruedas necesario', 'balanceo_nec', 'solucion_balanceo_nec')
+        ] %}
+        
+        {% for item, name_val, name_sol in elementos_direccion_suspension %}
+        <tr>
+            <td>{{ item }}</td>
+            <td>Funcionamiento</td>
+            
+            <td style="text-align: center;">
+                {% if es_pdf %}
+                    {% if datos_post and datos_post.get(name_val) == 'OK' %}✓{% endif %}
+                {% else %}
+                    <input type="radio" name="{{ name_val }}" value="OK">
+                {% endif %}
+            </td>
+            
+            <td style="text-align: center;">
+                {% if es_pdf %}
+                    {% if datos_post and datos_post.get(name_val) == 'NOK' %}✗{% endif %}
+                {% else %}
+                    <input type="radio" name="{{ name_val }}" value="NOK">
+                {% endif %}
+            </td>
+            
+            <td>
+                {% if es_pdf %}
+                    {{ datos_post.get(name_sol, '') if datos_post else '' }}
+                {% else %}
+                    <input type="text" name="{{ name_sol }}" class="form-control">
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 
 
@@ -332,8 +418,6 @@
 
         
     {% set textos = [
-        ('6. SISTEMA DE FRENOS', 'frenos'),
-        ('7. DIRECCIÓN Y SUSPENSIÓN', 'direccion'),
         ('Observaciones', 'observaciones')
     ] %}
 
