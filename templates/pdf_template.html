@@ -1,378 +1,179 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
-<meta charset="UTF-8">
-
-<title>Prueba de Ruta VW</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-rel="stylesheet">
-
-<link rel="stylesheet"
-href="{{ url_for('static', filename='css/estilo.css') }}">
-
+    <meta charset="UTF-8">
+    <title>Prueba de Ruta VW</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+    
+    <style>
+        @page { size: A4; margin: 15mm; }
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; color: #333; }
+        h2 { color: #001e50; font-weight: bold; margin-bottom: 25px; }
+        h4 { color: #001e50; font-size: 15px; font-weight: bold; margin-top: 20px; border-bottom: 2px solid #001e50; padding-bottom: 5px; }
+        .table { width: 100%; margin-bottom: 1rem; vertical-align: top; border-collapse: collapse; }
+        .table-bordered th, .table-bordered td { border: 1px solid #dee2e6; padding: 8px; }
+        .table th { background-color: #f8f9fa; text-align: left; }
+        .row { display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; }
+        .col-3 { flex: 0 0 25%; max-width: 25%; padding: 0 15px; box-sizing: border-box; }
+        .col-6 { flex: 0 0 50%; max-width: 50%; padding: 0 15px; box-sizing: border-box; }
+        .valor-pdf { font-weight: bold; color: #000; border-bottom: 1px dashed #ccc; padding: 2px 5px; display: block; min-height: 20px; background: #fafafa; }
+        .bloque-obs { background: #fdfdfd; border: 1px solid #dee2e6; padding: 10px; min-height: 40px; border-radius: 4px; white-space: pre-wrap; }
+    </style>
 </head>
-
 <body>
 
 <div class="container mt-4">
 
-<h2 class="text-center">
-PRUEBA DE RUTA VOLKSWAGEN
-</h2>
-
-<form action="/generar" method="POST">
-
-<div class="row">
-
-<div class="col-md-3">
-<label>N° Orden</label>
-<input type="text"
-name="orden"
-class="form-control">
-</div>
-
-<div class="col-md-3">
-<label>Placa</label>
-<input type="text"
-name="placa"
-class="form-control">
-</div>
-
-<div class="col-md-3">
-<label>Modelo / Año</label>
-<input type="text"
-name="modelo"
-class="form-control">
-</div>
-
-<div class="col-md-3">
-<label>Motor</label>
-<input type="text"
-name="motor"
-class="form-control">
-</div>
-
-</div>
-
-<br>
-
-<div class="row">
-
-<div class="col-md-3">
-<label>Km Prueba</label>
-<input type="number"
-name="km"
-class="form-control">
-</div>
-
-</div>
-
-<hr>
-
-<h4>1. ILUMINACIÓN</h4>
-
-<table class="table table-bordered">
-
-<thead>
-
-<tr>
-
-<th>Elemento</th>
-<th>Estado</th>
-<th>OK</th>
-<th>NOK</th>
-<th>Solución</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr>
-
-<td>Exterior</td>
-
-<td>Funcionamiento</td>
-
-<td>
-<input type="radio"
-name="exterior"
-value="OK">
-</td>
-
-<td>
-<input type="radio"
-name="exterior"
-value="NOK">
-</td>
-
-<td>
-<input type="text"
-name="solucion_exterior"
-class="form-control">
-</td>
-
-</tr>
-
-<tr>
-
-<td>Interior / Tapasol / Guantera</td>
-
-<td>Funcionamiento</td>
-
-<td>
-<input type="radio"
-name="interior"
-value="OK">
-</td>
-
-<td>
-<input type="radio"
-name="interior"
-value="NOK">
-</td>
-
-<td>
-<input type="text"
-name="solucion_interior"
-class="form-control">
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-<hr>
-
-<h4>2. INTERIOR</h4>
-
-<table class="table table-bordered">
-
-<tr>
-<td>Claxon / Sunroof</td>
-<td>
-<select name="claxon"
-class="form-select">
-<option>OK</option>
-<option>NOK</option>
-</select>
-</td>
-<td>
-<input type="text"
-name="solucion_claxon"
-class="form-control">
-</td>
-</tr>
-
-<tr>
-<td>Limpiaparabrisas / Lavafaros</td>
-<td>
-<select name="limpia"
-class="form-select">
-<option>OK</option>
-<option>NOK</option>
-</select>
-</td>
-<td>
-<input type="text"
-name="solucion_limpia"
-class="form-control">
-</td>
-</tr>
-
-<tr>
-<td>AC</td>
-<td>
-<select name="ac"
-class="form-select">
-<option>OK</option>
-<option>NOK</option>
-</select>
-</td>
-<td>
-<input type="text"
-name="solucion_ac"
-class="form-control">
-</td>
-</tr>
-
-<tr>
-<td>Cinturones</td>
-<td>
-<select name="cinturones"
-class="form-select">
-<option>OK</option>
-<option>NOK</option>
-</select>
-</td>
-<td>
-<input type="text"
-name="solucion_cinturones"
-class="form-control">
-</td>
-</tr>
-
-<tr>
-<td>Airbag / Alarma / Elevalunas</td>
-<td>
-<select name="airbag"
-class="form-select">
-<option>OK</option>
-<option>NOK</option>
-</select>
-</td>
-<td>
-<input type="text"
-name="solucion_airbag"
-class="form-control">
-</td>
-</tr>
-
-<tr>
-<td>MMI / Radio</td>
-<td>
-<select name="radio"
-class="form-select">
-<option>OK</option>
-<option>NOK</option>
-</select>
-</td>
-<td>
-<input type="text"
-name="solucion_radio"
-class="form-control">
-</td>
-</tr>
-
-<tr>
-<td>Velocímetro / RPM</td>
-<td>
-<select name="rpm"
-class="form-select">
-<option>OK</option>
-<option>NOK</option>
-</select>
-</td>
-<td>
-<input type="text"
-name="solucion_rpm"
-class="form-control">
-</td>
-</tr>
-
-<tr>
-<td>Ruido Interior</td>
-<td>
-<select name="ruido"
-class="form-select">
-<option>OK</option>
-<option>NOK</option>
-</select>
-</td>
-<td>
-<input type="text"
-name="solucion_ruido"
-class="form-control">
-</td>
-</tr>
-
-</table>
-
-<hr>
-
-<h4>3. MOTOR</h4>
-
-<textarea
-name="motor_obs"
-rows="4"
-class="form-control"></textarea>
-
-<hr>
-
-<h4>4. CAJA AUTOMÁTICA</h4>
-
-<textarea
-name="caja_auto"
-rows="4"
-class="form-control"></textarea>
-
-<hr>
-
-<h4>5. CAJA MANUAL</h4>
-
-<textarea
-name="caja_manual"
-rows="4"
-class="form-control"></textarea>
-
-<hr>
-
-<h4>6. SISTEMA DE FRENOS</h4>
-
-<textarea
-name="frenos"
-rows="4"
-class="form-control"></textarea>
-
-<hr>
-
-<h4>7. DIRECCIÓN Y SUSPENSIÓN</h4>
-
-<textarea
-name="direccion"
-rows="4"
-class="form-control"></textarea>
-
-<hr>
-
-<h4>Observaciones</h4>
-
-<textarea
-name="observaciones"
-rows="5"
-class="form-control"></textarea>
-
-<br>
-
-<div class="row">
-
-<div class="col-md-6">
-
-<label>Nombre Técnico</label>
-
-<input type="text"
-name="tecnico"
-class="form-control">
-
-</div>
-
-<div class="col-md-6">
-
-<label>Fecha</label>
-
-<input type="date"
-name="fecha"
-class="form-control">
-
-</div>
-
-</div>
-
-<br>
-
-<button
-class="btn btn-success btn-lg">
-
-Generar PDF
-
-</button>
-
-</form>
+    <h2 class="text-center">PRUEBA DE RUTA VOLKSWAGEN</h2>
+
+    {% if not es_pdf %}<form action="/generar" method="POST">{% endif %}
+
+    <div class="row">
+        <div class="col-3">
+            <label class="form-label fw-bold">N° Orden</label>
+            {% if es_pdf % shadow %}<div class="valor-pdf">{{ orden }}</div>{% else %}<input type="text" name="orden" class="form-control">{% endif %}
+        </div>
+        <div class="col-3">
+            <label class="form-label fw-bold">Placa</label>
+            {% if es_pdf %}<div class="valor-pdf">{{ placa }}</div>{% else %}<input type="text" name="placa" class="form-control">{% endif %}
+        </div>
+        <div class="col-3">
+            <label class="form-label fw-bold">Modelo / Año</label>
+            {% if es_pdf %}<div class="valor-pdf">{{ modelo }}</div>{% else %}<input type="text" name="modelo" class="form-control">{% endif %}
+        </div>
+        <div class="col-3">
+            <label class="form-label fw-bold">Motor</label>
+            {% if es_pdf %}<div class="valor-pdf">{{ motor }}</div>{% else %}<input type="text" name="motor" class="form-control">{% endif %}
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-3">
+            <label class="form-label fw-bold">Km Prueba</label>
+            {% if es_pdf %}<div class="valor-pdf">{{ km }}</div>{% else %}<input type="number" name="km" class="form-control">{% endif %}
+        </div>
+    </div>
+
+    <hr>
+
+    <h4>1. ILUMINACIÓN</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Elemento</th>
+                <th>Estado</th>
+                <th style="text-align: center; width: 8%;">OK</th>
+                <th style="text-align: center; width: 8%;">NOK</th>
+                <th>Solución</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Exterior</td>
+                <td>Funcionamiento</td>
+                <td style="text-align: center;">{% if es_pdf %}{% if exterior == 'OK' %}✓{% endif %}{% else %}<input type="radio" name="exterior" value="OK">{% endif %}</td>
+                <td style="text-align: center;">{% if es_pdf %}{% if exterior == 'NOK' %}✗{% endif %}{% else %}<input type="radio" name="exterior" value="NOK">{% endif %}</td>
+                <td>{% if es_pdf %}{{ solucion_exterior }}{% else %}<input type="text" name="solucion_exterior" class="form-control">{% endif %}</td>
+            </tr>
+            <tr>
+                <td>Interior / Tapasol / Guantera</td>
+                <td>Funcionamiento</td>
+                <td style="text-align: center;">{% if es_pdf %}{% if interior == 'OK' %}✓{% endif %}{% else %}<input type="radio" name="interior" value="OK">{% endif %}</td>
+                <td style="text-align: center;">{% if es_pdf %}{% if interior == 'NOK' %}✗{% endif %}{% else %}<input type="radio" name="interior" value="NOK">{% endif %}</td>
+                <td>{% if es_pdf %}{{ solucion_interior }}{% else %}<input type="text" name="solucion_interior" class="form-control">{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <h4>2. INTERIOR</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Elemento</th>
+                <th style="width: 15%;">Estado</th>
+                <th>Solución</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set elementos = [
+                ('Claxon / Sunroof', 'claxon', 'solucion_claxon'),
+                ('Limpiaparabrisas / Lavafaros', 'limpia', 'solucion_limpia'),
+                ('AC', 'ac', 'solucion_ac'),
+                ('Cinturones', 'cinturones', 'solucion_cinturones'),
+                ('Airbag / Alarma / Elevalunas', 'airbag', 'solucion_airbag'),
+                ('MMI / Radio', 'radio', 'solucion_radio'),
+                ('Velocímetro / RPM', 'rpm', 'solucion_rpm'),
+                ('Ruido Interior', 'ruido', 'solucion_ruido')
+            ] %}
+            
+            {% for item, name_val, name_sol in elementos %}
+            <tr>
+                <td>{{ item }}</td>
+                <td>
+                    {% if es_pdf %}
+                        <strong>{{ datos_post[name_val] }}</strong>
+                    {% else %}
+                        <select name="{{ name_val }}" class="form-select">
+                            <option value="OK">OK</option>
+                            <option value="NOK">NOK</option>
+                        </select>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if es_pdf %}
+                        {{ datos_post[name_sol] }}
+                    {% else %}
+                        <input type="text" name="{{ name_sol }}" class="form-control">
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% set textos = [
+        ('3. MOTOR', 'motor_obs'),
+        ('4. CAJA AUTOMÁTICA', 'caja_auto'),
+        ('5. CAJA MANUAL', 'caja_manual'),
+        ('6. SISTEMA DE FRENOS', 'frenos'),
+        ('7. DIRECCIÓN Y SUSPENSIÓN', 'direccion'),
+        ('Observaciones', 'observaciones')
+    ] %}
+
+    {% for titulo, name_txt in textos %}
+        <hr>
+        <h4>{{ titulo }}</h4>
+        {% if es_pdf %}
+            <div class="bloque-obs">{{ datos_post[name_txt] }}</div>
+        {% else %}
+            <textarea name="{{ name_txt }}" rows="3" class="form-control"></textarea>
+        {% endif %}
+    {% endfor %}
+
+    <br>
+
+    <div class="row">
+        <div class="col-6">
+            <label class="form-label fw-bold">Nombre Técnico</label>
+            {% if es_pdf %}<div class="valor-pdf">{{ tecnico }}</div>{% else %}<input type="text" name="tecnico" class="form-control">{% endif %}
+        </div>
+        <div class="col-6">
+            <label class="form-label fw-bold">Fecha</label>
+            {% if es_pdf %}<div class="valor-pdf">{{ fecha }}</div>{% else %}<input type="date" name="fecha" class="form-control">{% endif %}
+        </div>
+    </div>
+
+    <br>
+
+    {% if not es_pdf %}
+        <div class="text-center mb-5">
+            <button class="btn btn-success btn-lg px-5">Generar PDF</button>
+        </div>
+    </form>
+    {% endif %}
 
 </div>
 
