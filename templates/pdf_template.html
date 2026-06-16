@@ -98,7 +98,6 @@
                 <th style="text-align: center; width: 8%;">NOK</th>
                 <th>Solución</th>
             </tr>
-
         </thead>
         <tbody>
             {% set elementos = [
@@ -115,16 +114,24 @@
             {% for item, name_val, name_sol in elementos %}
             <tr>
                 <td>{{ item }}</td>
-                <td>
+                <td>Funcionamiento</td>
+                
+                <td style="text-align: center;">
                     {% if es_pdf %}
-                        <strong>{{ datos_post.get(name_val, '') if datos_post else '' }}</strong>
+                        {% if datos_post and datos_post.get(name_val) == 'OK' %}✓{% endif %}
                     {% else %}
-                        <select name="{{ name_val }}" class="form-select">
-                            <option value="OK">OK</option>
-                            <option value="NOK">NOK</option>
-                        </select>
+                        <input type="radio" name="{{ name_val }}" value="OK">
                     {% endif %}
                 </td>
+                
+                <td style="text-align: center;">
+                    {% if es_pdf %}
+                        {% if datos_post and datos_post.get(name_val) == 'NOK' %}✗{% endif %}
+                    {% else %}
+                        <input type="radio" name="{{ name_val }}" value="NOK">
+                    {% endif %}
+                </td>
+                
                 <td>
                     {% if es_pdf %}
                         {{ datos_post.get(name_sol, '') if datos_post else '' }}
