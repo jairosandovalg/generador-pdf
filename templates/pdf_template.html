@@ -87,7 +87,6 @@
     </table>
 
     <hr>
-
     <h4>2. INTERIOR</h4>
     <table class="table table-bordered">
         <thead>
@@ -143,9 +142,61 @@
             {% endfor %}
         </tbody>
     </table>
-
+        
+<hr>
+<h4>3. MOTOR</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Elemento</th>
+            <th>Estado</th>
+            <th style="text-align: center; width: 8%;">OK</th>
+            <th style="text-align: center; width: 8%;">NOK</th>
+            <th>Solución</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% set elementos_motor = [
+            ('Potencia / vibración / arranque (caliente/frío), Cruise Control (CC)', 'potencia', 'solucion_potencia'),
+            ('Comportamiento del ralentí (frío/caliente)', 'ralenti', 'solucion_ralenti'),
+            ('Testigos encendidos', 'testigos', 'solucion_testigos'),
+            ('Ruidos', 'ruidos_motor', 'solucion_ruidos_motor')
+        ] %}
+        
+        {% for item, name_val, name_sol in elementos_motor %}
+        <tr>
+            <td>{{ item }}</td>
+            <td>Funcionamiento</td>
+            
+            <td style="text-align: center;">
+                {% if es_pdf %}
+                    {% if datos_post and datos_post.get(name_val) == 'OK' %}✓{% endif %}
+                {% else %}
+                    <input type="radio" name="{{ name_val }}" value="OK">
+                {% endif %}
+            </td>
+            
+            <td style="text-align: center;">
+                {% if es_pdf %}
+                    {% if datos_post and datos_post.get(name_val) == 'NOK' %}✗{% endif %}
+                {% else %}
+                    <input type="radio" name="{{ name_val }}" value="NOK">
+                {% endif %}
+            </td>
+            
+            <td>
+                {% if es_pdf %}
+                    {{ datos_post.get(name_sol, '') if datos_post else '' }}
+                {% else %}
+                    <input type="text" name="{{ name_sol }}" class="form-control">
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+        
     {% set textos = [
-        ('3. MOTOR', 'motor_obs'),
         ('4. CAJA AUTOMÁTICA', 'caja_auto'),
         ('5. CAJA MANUAL', 'caja_manual'),
         ('6. SISTEMA DE FRENOS', 'frenos'),
