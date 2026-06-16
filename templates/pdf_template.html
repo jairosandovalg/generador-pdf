@@ -196,6 +196,77 @@
     </tbody>
 </table>
         
+<hr>
+<h4>4. CAJA AUTOMÁTICA</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Elemento</th>
+            <th>Estado</th>
+            <th style="text-align: center; width: 8%;">OK</th>
+            <th style="text-align: center; width: 8%;">NOK</th>
+            <th>Solución</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% set elementos_caja_auto = [
+            ('Posición de la palanca / shift lock, Cruise Control (CC)', 'shift_lock', 'solucion_shift_lock'),
+            ('P,R,N,D,S y +/- Multitronic (timón)', 'posiciones_palanca', 'solucion_posiciones_palanca'),
+            ('Indicador panel de Instrumentos', 'panel_instrumentos', 'solucion_panel_instrumentos'),
+            ('Ruido / golpes / olor, etc', 'ruido_caja_auto', 'solucion_ruido_caja_auto')
+        ] %}
+        
+        {% for item, name_val, name_sol in elementos_caja_auto %}
+        <tr>
+            <td>{{ item }}</td>
+            <td>Funcionamiento</td>
+            
+            <td style="text-align: center;">
+                {% if es_pdf %}
+                    {% if datos_post and datos_post.get(name_val) == 'OK' %}✓{% endif %}
+                {% else %}
+                    <input type="radio" name="{{ name_val }}" value="OK">
+                {% endif %}
+            </td>
+            
+            <td style="text-align: center;">
+                {% if es_pdf %}
+                    {% if datos_post and datos_post.get(name_val) == 'NOK' %}✗{% endif %}
+                {% else %}
+                    <input type="radio" name="{{ name_val }}" value="NOK">
+                {% endif %}
+            </td>
+            
+            <td>
+                {% if es_pdf %}
+                    {{ datos_post.get(name_sol, '') if datos_post else '' }}
+                {% else %}
+                    <input type="text" name="{{ name_sol }}" class="form-control">
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     {% set textos = [
         ('4. CAJA AUTOMÁTICA', 'caja_auto'),
         ('5. CAJA MANUAL', 'caja_manual'),
