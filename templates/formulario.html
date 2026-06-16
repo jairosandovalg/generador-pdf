@@ -1,51 +1,64 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de PDF</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f7fafc; }
-        .container { max-width: 500px; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h2 { color: #1a365d; }
-        .campo { margin-bottom: 20px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; }
-        input[type="text"] { width: 100%; padding: 8px; border: 1px solid #cbd5e0; border-radius: 4px; box-sizing: border-box; }
-        .opciones { margin: 10px 0; }
-        button { background-color: #3182ce; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; }
-        button:hover { background-color: #2b6cb0; }
-    </style>
-</head>
-<body>
+<h2>Prueba de Ruta</h2>
 
-<div class="container">
-    <h2>Configura tu PDF</h2>
-    <form action="/generar" method="POST">
-        
-        <div class="campo">
-            <label for="titulo">Título del Reporte:</label>
-            <input type="text" id="titulo" name="titulo" placeholder="Ej. Reporte de Rendimiento" required>
-        </div>
+<form action="/generar" method="POST">
 
-        <div class="campo">
-            <label>Selecciona una opción:</label>
-            <div class="opciones">
-                <input type="radio" id="opcionA" name="tipo_opcion" value="Opción A (Plan de Análisis Básico)" checked>
-                <label style="display:inline; font-weight:normal;" for="opcionA">Opción A (Plan Básico)</label>
-            </div>
-            <div class="opciones">
-                <input type="radio" id="opcionB" name="tipo_opcion" value="Opción B (Plan de Análisis Avanzado)">
-                <label style="display:inline; font-weight:normal;" for="opcionB">Opción B (Plan Avanzado)</label>
-            </div>
-            <div class="opciones">
-                <input type="radio" id="opcionC" name="tipo_opcion" value="Opción C">
-                <label style="display:inline; font-weight:normal;" for="opcionC">Opción C (Plan Gratuito)</label>
-            </div>            
-        </div>
+    <div class="campo">
+        <label for="km">Kilómetros:</label>
+        <input type="text" id="km" name="km">
+    </div>
 
-        <button type="submit">Generar y Descargar PDF</button>
-    </form>
-</div>
+    <table border="1" width="100%" cellspacing="0" cellpadding="5">
+        <thead>
+            <tr style="background-color:#d9d9d9;">
+                <th>Elemento</th>
+                <th>Estado</th>
+                <th>OK</th>
+                <th>NOK</th>
+                <th>Solución</th>
+            </tr>
+        </thead>
 
-</body>
-</html>
+        <tbody>
+
+            <tr style="background-color:#bfbfbf;">
+                <td colspan="5"><strong>1. ILUMINACIÓN</strong></td>
+            </tr>
+
+            <tr>
+                <td>Exterior</td>
+                <td>Funcionamiento</td>
+                <td><input type="radio" name="exterior" value="OK"></td>
+                <td><input type="radio" name="exterior" value="NOK"></td>
+                <td><input type="text" name="solucion_exterior"></td>
+            </tr>
+
+            <tr>
+                <td>Interior / Tapasol / Guantera</td>
+                <td>Funcionamiento</td>
+                <td><input type="radio" name="interior" value="OK"></td>
+                <td><input type="radio" name="interior" value="NOK"></td>
+                <td><input type="text" name="solucion_interior"></td>
+            </tr>
+
+            <tr style="background-color:#bfbfbf;">
+                <td colspan="5"><strong>2. INTERIOR</strong></td>
+            </tr>
+
+            <tr>
+                <td>Claxon, Sunroof</td>
+                <td>Funcionamiento</td>
+                <td><input type="radio" name="claxon" value="OK"></td>
+                <td><input type="radio" name="claxon" value="NOK"></td>
+                <td><input type="text" name="solucion_claxon"></td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <br>
+
+    <button type="submit">
+        Generar y Descargar PDF
+    </button>
+
+</form>
