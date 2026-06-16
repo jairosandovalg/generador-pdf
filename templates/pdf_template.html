@@ -9,16 +9,16 @@
     <style>
         @page { size: A4; margin: 15mm; }
         body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; color: #333; }
-        h2 { color: #001e50; font-weight: bold; margin-bottom: 25px; }
-        h4 { color: #001e50; font-size: 15px; font-weight: bold; margin-top: 20px; border-bottom: 2px solid #001e50; padding-bottom: 5px; }
+        h2 { color: #001e50; font-weight: bold; margin-bottom: 25px; text-transform: uppercase; }
+        h4 { color: #001e50; font-size: 14px; font-weight: bold; margin-top: 25px; border-bottom: 2px solid #001e50; padding-bottom: 5px; text-transform: uppercase; }
         .table { width: 100%; margin-bottom: 1rem; vertical-align: top; border-collapse: collapse; }
-        .table-bordered th, .table-bordered td { border: 1px solid #dee2e6; padding: 8px; }
-        .table th { background-color: #f8f9fa; text-align: left; }
+        .table-bordered th, .table-bordered td { border: 1px solid #dee2e6; padding: 8px; vertical-align: middle; }
+        .table th { background-color: #f8f9fa; text-align: left; font-weight: bold; }
         .row { display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; }
         .col-3 { flex: 0 0 25%; max-width: 25%; padding: 0 15px; box-sizing: border-box; }
         .col-6 { flex: 0 0 50%; max-width: 50%; padding: 0 15px; box-sizing: border-box; }
-        .valor-pdf { font-weight: bold; color: #000; border-bottom: 1px dashed #ccc; padding: 2px 5px; display: block; min-height: 20px; background: #fafafa; }
-        .bloque-obs { background: #fdfdfd; border: 1px solid #dee2e6; padding: 10px; min-height: 40px; border-radius: 4px; white-space: pre-wrap; }
+        .valor-pdf { font-weight: bold; color: #000; border-bottom: 1px dashed #ccc; padding: 6px 5px; display: block; min-height: 20px; background: #fafafa; border-radius: 4px; }
+        .bloque-obs { background: #fdfdfd; border: 1px solid #dee2e6; padding: 10px; min-height: 40px; border-radius: 4px; white-space: pre-wrap; font-style: italic; color: #444; }
     </style>
 </head>
 <body>
@@ -32,7 +32,7 @@
     <div class="row">
         <div class="col-3">
             <label class="form-label fw-bold">N° Orden</label>
-            {% if es_pdf % shadow %}<div class="valor-pdf">{{ orden }}</div>{% else %}<input type="text" name="orden" class="form-control">{% endif %}
+            {% if es_pdf %}<div class="valor-pdf">{{ orden }}</div>{% else %}<input type="text" name="orden" class="form-control">{% endif %}
         </div>
         <div class="col-3">
             <label class="form-label fw-bold">Placa</label>
@@ -114,7 +114,7 @@
                 <td>{{ item }}</td>
                 <td>
                     {% if es_pdf %}
-                        <strong>{{ datos_post[name_val] }}</strong>
+                        <strong>{{ datos_post.get(name_val, '') if datos_post else '' }}</strong>
                     {% else %}
                         <select name="{{ name_val }}" class="form-select">
                             <option value="OK">OK</option>
@@ -124,7 +124,7 @@
                 </td>
                 <td>
                     {% if es_pdf %}
-                        {{ datos_post[name_sol] }}
+                        {{ datos_post.get(name_sol, '') if datos_post else '' }}
                     {% else %}
                         <input type="text" name="{{ name_sol }}" class="form-control">
                     {% endif %}
@@ -147,7 +147,7 @@
         <hr>
         <h4>{{ titulo }}</h4>
         {% if es_pdf %}
-            <div class="bloque-obs">{{ datos_post[name_txt] }}</div>
+            <div class="bloque-obs">{{ datos_post.get(name_txt, '') if datos_post else '' }}</div>
         {% else %}
             <textarea name="{{ name_txt }}" rows="3" class="form-control"></textarea>
         {% endif %}
@@ -170,7 +170,7 @@
 
     {% if not es_pdf %}
         <div class="text-center mb-5">
-            <button class="btn btn-success btn-lg px-5">Generar PDF</button>
+            <button type="submit" class="btn btn-success btn-lg px-5">Generar PDF</button>
         </div>
     </form>
     {% endif %}
