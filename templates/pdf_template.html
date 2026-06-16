@@ -55,36 +55,55 @@
         </div>
     </div>
 
-    <hr>
-
-    <h4>1. ILUMINACIÓN</h4>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Elemento</th>
-                <th>Estado</th>
-                <th style="text-align: center; width: 8%;">OK</th>
-                <th style="text-align: center; width: 8%;">NOK</th>
-                <th>Solución</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Exterior</td>
-                <td>Funcionamiento</td>
-                <td style="text-align: center;">{% if es_pdf %}{% if exterior == 'OK' %}✓{% endif %}{% else %}<input type="radio" name="exterior" value="OK">{% endif %}</td>
-                <td style="text-align: center;">{% if es_pdf %}{% if exterior == 'NOK' %}✗{% endif %}{% else %}<input type="radio" name="exterior" value="NOK">{% endif %}</td>
-                <td>{% if es_pdf %}{{ solucion_exterior }}{% else %}<input type="text" name="solucion_exterior" class="form-control">{% endif %}</td>
-            </tr>
-            <tr>
-                <td>Interior / Tapasol / Guantera</td>
-                <td>Funcionamiento</td>
-                <td style="text-align: center;">{% if es_pdf %}{% if interior == 'OK' %}✓{% endif %}{% else %}<input type="radio" name="interior" value="OK">{% endif %}</td>
-                <td style="text-align: center;">{% if es_pdf %}{% if interior == 'NOK' %}✗{% endif %}{% else %}<input type="radio" name="interior" value="NOK">{% endif %}</td>
-                <td>{% if es_pdf %}{{ solucion_interior }}{% else %}<input type="text" name="solucion_interior" class="form-control">{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+<h4>1. ILUMINACIÓN</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Elemento</th>
+            <th>Estado</th>
+            <th style="text-align: center; width: 8%;">OK</th>
+            <th style="text-align: center; width: 8%;">NOK</th>
+            <th>Solución</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% set elementos_iluminacion = [
+            ('Exterior', 'ilum_exterior', 'solucion_ilum_exterior'),
+            ('Interior / tapasol / guantera, etc.', 'ilum_interior', 'solucion_ilum_interior')
+        ] %}
+        
+        {% for item, name_val, name_sol in elementos_iluminacion %}
+        <tr>
+            <td>{{ item }}</td>
+            <td>Funcionamiento</td>
+            
+            <td style="text-align: center;">
+                {% if es_pdf %}
+                    {% if datos_post and datos_post.get(name_val) == 'OK' %}✓{% endif %}
+                {% else %}
+                    <input type="radio" name="{{ name_val }}" value="OK" required>
+                {% endif %}
+            </td>
+            
+            <td style="text-align: center;">
+                {% if es_pdf %}
+                    {% if datos_post and datos_post.get(name_val) == 'NOK' %}✗{% endif %}
+                {% else %}
+                    <input type="radio" name="{{ name_val }}" value="NOK">
+                {% endif %}
+            </td>
+            
+            <td>
+                {% if es_pdf %}
+                    {{ datos_post.get(name_sol, '') if datos_post else '' }}
+                {% else %}
+                    <input type="text" name="{{ name_sol }}" class="form-control">
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>   
 
     <hr>
     <h4>2. INTERIOR</h4>
