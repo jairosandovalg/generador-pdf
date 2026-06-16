@@ -33,16 +33,7 @@ def generar():
         except ValueError:
             datos['km'] = 0
 
-    # 2. Intentamos guardar el diccionario completo de forma directa en Supabase
-    try:
-        supabase.table("inspecciones").insert(datos).execute()
-        print("¡Inspección guardada exitosamente en la base de datos de Supabase!")
-    except Exception as e:
-        # Si la red falla o las credenciales no están listas, la consola imprimirá el error
-        # pero el backend no se colgará y continuará generando el PDF para el técnico.
-        print(f"Alerta: No se pudo registrar en Supabase de forma síncrona: {e}")
-
-    # 3. Renderiza la plantilla en modo PDF pasando el diccionario de datos mapeados
+    # 2. Renderiza la plantilla en modo PDF pasando el diccionario de datos mapeados
     html = render_template(
         'pdf_template.html',
         es_pdf=True,
@@ -50,7 +41,7 @@ def generar():
         **datos  # Mantiene tu desempaquetado original para alimentar orden, placa, modelo, etc.
     )
 
-    # 4. Crea un archivo temporal seguro para depositar el binario del PDF
+    # 3. Crea un archivo temporal seguro para depositar el binario del PDF
     pdf_file = tempfile.NamedTemporaryFile(
         delete=False,
         suffix=".pdf"
@@ -61,12 +52,46 @@ def generar():
         string=html,
         base_url=request.url_root
     ).write_pdf(pdf_file.name)
+    
+    print("-> PDF generado localmente en el servidor de Render.")
 
-    # 5. Devuelve el archivo para su descarga inmediata usando la placa en el nombre
+    # 4. AUTOMÁTICO: Subir el archivo PDF generado al Storage de Supabase
+    placa = datos.get('placa', 'VW')
+    fecha_str = datetime.now().strftime('%Y%m%d_%H%M%S')
+    nombre_archivo_pdf = f"Inspeccion_{placa}_{fecha_str}.pdf"
+    
+    url_publica = None
+    try:
+        with open(pdf_file.name, 'rb') as archivo_pdf:
+            supabase.storage.from_('pdfs_formularios').upload(
+                file=archivo_pdf,
+                path=nombre_archivo_pdf,
+                file_options={"content-type": "application/pdf"}
+            )
+        
+        # Obtener el enlace de descarga permanente de Supabase Storage
+        url_publica = supabase.storage.from_('pdfs_formularios').get_public_url(nombre_archivo_pdf)
+        print(f"-> PDF subido al Storage de forma automática. URL: {url_publica}")
+        
+    except Exception as e:
+        print(f"Alerta: No se pudo subir el archivo PDF al Storage: {e}")
+
+    # 5. AUTOMÁTICO: Si obtuvimos la URL, la agregamos al diccionario antes de guardar en la tabla
+    if url_publica:
+        datos['url_pdf'] = url_publica
+
+    # 6. Intentamos guardar el diccionario completo (ahora incluye la URL del PDF) en Supabase
+    try:
+        supabase.table("inspecciones").insert(datos).execute()
+        print("¡Inspección y enlace de PDF guardados exitosamente en la base de datos de Supabase!")
+    except Exception as e:
+        print(f"Alerta: No se pudo registrar en la tabla de Supabase: {e}")
+
+    # 7. Devuelve el archivo para su descarga inmediata en la computadora o celular del técnico
     return send_file(
         pdf_file.name,
         as_attachment=True,
-        download_name=f"Prueba_Ruta_{datos.get('placa', 'VW')}.pdf"
+        download_name=f"Prueba_Ruta_{placa}.pdf"
     )
 
 if __name__ == '__main__':
