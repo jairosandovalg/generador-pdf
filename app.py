@@ -51,7 +51,7 @@ def generar():
     # Convierte el HTML estructurado en PDF con WeasyPrint
     HTML(
         string=html,
-        base_url=request.url_root
+        base_url=os.path.dirname(os.path.abspath(__file__))
     ).write_pdf(pdf_file.name)
     
     print("-> PDF generado localmente en el servidor de Render.")
