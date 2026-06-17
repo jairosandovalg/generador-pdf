@@ -48,7 +48,16 @@
         </div>
         <div class="col-3">
             <label class="form-label fw-bold">Modelo / Año</label>
-            {% if es_pdf %}<div class="valor-pdf">{{ modelo }}</div>{% else %}<input type="text" name="modelo" class="form-control" required>{% endif %}
+            {% if es_pdf %}<div class="valor-pdf">{{ modelo }}</div>{% else %}<input type="text" name="modelo" 
+                                                                                                 class="form-control"  
+                                                                                                 minlength="4"
+                                                                                                 maxlength="4" 
+                                                                                                 pattern="\d{4}" 
+                                                                                                 title="El número de orden debe tener exactamente 4 dígitos."
+                                                                                                 inputmode="numeric" 
+                                                                                                 oninput="this.value = this.value.replace(/[^0-9]/g, '');"                                                                                                                                                                                                                                                                                                                                   
+                                                                                                required>
+            {% endif %}
         </div>
         <div class="col-3">
             <label class="form-label fw-bold">Motor</label>
