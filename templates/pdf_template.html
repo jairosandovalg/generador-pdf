@@ -31,41 +31,45 @@
     <div class="row">
         <div class="col-3">
             <label class="form-label fw-bold">N° Orden</label>
-            {% if es_pdf %}<div class="valor-pdf">{{ orden }}</div>{% else %}<input type="text" name="orden"
-                                                                                                class="form-control" 
-                                                                                                minlength="10"
-                                                                                                maxlength="10" 
-                                                                                                pattern="\d{10}" 
-                                                                                                title="El número de orden debe tener exactamente 10 dígitos."
-                                                                                                inputmode="numeric" 
-                                                                                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
-                                                                                                required>
+            {% if es_pdf %}<div class="valor-pdf">{{ orden }}</div>{% else %}<input type="text" 
+                                                                                    name="orden"
+                                                                                    class="form-control" 
+                                                                                    minlength="10"
+                                                                                    maxlength="10" 
+                                                                                    pattern="\d{10}" 
+                                                                                    title="El número de orden debe tener exactamente 10 dígitos."
+                                                                                    inputmode="numeric" 
+                                                                                    oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
+                                                                                    required>
             {% endif %}
         </div>
         <div class="col-3">
             <label class="form-label fw-bold">Placa</label>
-            {% if es_pdf %}<div class="valor-pdf">{{ placa }}</div>{% else %}<input type="text" name="placa" 
-                                                                                                class="form-control"
-                                                                                                minlength="6"
-                                                                                                maxlength="6" 
-                                                                                                pattern="\d{10}" 
-                                                                                                title="El número de orden debe tener exactamente 6 dígitos."
-                                                                                                inputmode="text" 
-                                                                                                oninput="this.value = this.value.replace(/[^0-9]/g, '');"                                                                                  
-                                                                                                required>
+            {% if es_pdf %}<div class="valor-pdf">{{ placa }}</div>{% else %}<input type="text"
+                                                                                    name="placa" 
+                                                                                    class="form-control"
+                                                                                    minlength="6"
+                                                                                    maxlength="6" 
+                                                                                    pattern="^[A-Z0-9]{6}$" 
+                                                                                    title="La placa debe tener exactamente 6 caracteres alfanuméricos (letras y números sin guion)."
+                                                                                    inputmode="text" 
+                                                                                    oninput="this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');"
+                                                                                    placeholder="ABC123"
+                                                                                    required>
             {% endif %}
         </div>
         <div class="col-3">
             <label class="form-label fw-bold">Modelo / Año</label>
-            {% if es_pdf %}<div class="valor-pdf">{{ modelo }}</div>{% else %}<input type="text" name="modelo" 
-                                                                                                 class="form-control"  
-                                                                                                 minlength="4"
-                                                                                                 maxlength="4" 
-                                                                                                 pattern="\d{4}" 
-                                                                                                 title="El número de orden debe tener exactamente 4 dígitos."
-                                                                                                 inputmode="numeric" 
-                                                                                                 oninput="this.value = this.value.replace(/[^0-9]/g, '');"                                                                                                                                                                                                                                                                                                                                   
-                                                                                                required>
+            {% if es_pdf %}<div class="valor-pdf">{{ modelo }}</div>{% else %}<input type="text" 
+                                                                                     name="modelo" 
+                                                                                     class="form-control"  
+                                                                                     minlength="4"
+                                                                                     maxlength="4" 
+                                                                                     pattern="\d{4}" 
+                                                                                     title="El número de orden debe tener exactamente 4 dígitos."
+                                                                                     inputmode="numeric" 
+                                                                                     oninput="this.value = this.value.replace(/[^0-9]/g, '');"                                                                                                                                                                                                                                                                                                                                   
+                                                                                     required>
             {% endif %}
         </div>
         <div class="col-3">
