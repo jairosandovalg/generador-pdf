@@ -425,13 +425,13 @@
         </div>
     </div>
 
-<div class="seccion-firma" style="margin-top: 50px; text-align: center;">
-        <div style="display: inline-block; width: 300px; border-top: 1px solid #000; padding-top: 8px;">
+<div class="seccion-firma" style="margin-top: 15px; text-align: center;">
+        <div style="display: inline-block; width: 300px; border-top: 1px solid #000; padding-top: 5px;">
             
             {% if es_pdf %}
                 <img src="{{ url_root }}static/firmas/firma_jorge.png" alt="Firma Técnico" style="max-height: 80px; margin-bottom: -15px; display: block; margin-left: auto; margin-right: auto;">
-                {% else %}
-                <div style="height: 80px;"></div>
+            {% else %}
+                <div style="height: 40px;"></div>
             {% endif %}
             
             {# <p style="margin: 0; font-weight: bold; font-size: 14px;">{{ tecnico if tecnico else 'Jorge Pedrito Salazar' }}</p> #}
@@ -439,16 +439,15 @@
         </div>
     </div>
         
-    <br>
-
     {% if not es_pdf %}
-        <div class="text-center mb-5">
+        <div class="text-center mt-2">
             <button type="submit" class="btn btn-success btn-lg px-5">Generar PDF</button>
         </div>
-    </form> 
     {% endif %}
 
-</div>
+    </form> 
+    
+    </div>
     
 </body>
 </html>
