@@ -38,6 +38,7 @@ def generar():
         'pdf_template.html',
         es_pdf=True,
         datos_post=datos,
+        url_root=request.url_root,  
         **datos  # Mantiene tu desempaquetado original para alimentar orden, placa, modelo, etc.
     )
 
