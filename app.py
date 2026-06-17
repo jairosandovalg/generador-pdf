@@ -55,10 +55,18 @@ def generar():
     
     print("-> PDF generado localmente en el servidor de Render.")
 
+    # --- EXTRACCIÓN DE IDENTIFICADORES CLAVE ---
+    # Rescatamos los valores del formulario. Si vienen vacíos, les asignamos un valor por defecto.
+    n_orden = datos.get('orden', 'SIN_ORDEN').strip()
+    placa = datos.get('placa', 'SIN_PLACA').strip()
+    
+    # Capturamos el nombre del técnico. Si el input viene vacío, usamos "Jorge_Pedrito_Salazar" como ejemplo o defecto.
+    # Reemplazamos los espacios en blanco por guiones bajos para que la URL del archivo sea limpia y válida.
+    tecnico = datos.get('tecnico', 'Jorge Pedrito Salazar').strip().replace(" ", "_")
+
     # 4. AUTOMÁTICO: Subir el archivo PDF generado al Storage de Supabase
-    placa = datos.get('placa', 'VW')
-    fecha_str = datetime.now().strftime('%Y%m%d_%H%M%S')
-    nombre_archivo_pdf = f"Inspeccion_{placa}_{fecha_str}.pdf"
+    # Estructura del nombre: Orden_Placa_NombreTecnico.pdf
+    nombre_archivo_pdf = f"{n_orden}_{placa}_{tecnico}.pdf"
     
     url_publica = None
     try:
@@ -91,7 +99,7 @@ def generar():
     return send_file(
         pdf_file.name,
         as_attachment=True,
-        download_name=f"Prueba_Ruta_{placa}.pdf"
+        download_name=f"{n_orden}_{placa}_{tecnico}.pdf"
     )
 
 if __name__ == '__main__':
