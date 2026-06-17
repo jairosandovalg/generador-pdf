@@ -424,17 +424,19 @@
         </div>
     </div>
 
-    <div class="seccion-firma" style="margin-top: 30px; text-align: center; clear: both;">
-            <div style="display: inline-block; width: 300px; border-top: 1px solid #000; padding-top: 8px;">
-                
-                {% if es_pdf %}
-                    <img src="static/firmas/firma_jorge.png" alt="" style="max-height: 210px; display: block; margin: 0 auto 5px auto;">
-                {% else %}
-                    <div style="height: 40px;"></div>
-                {% endif %}
-                
-                <p style="margin: 0; color: #555; font-size: 13px; font-weight: bold; letter-spacing: 0.5px;">Firma del Técnico</p>
-            </div>
+    <div class="seccion-firma" style="margin-top: 40px; text-align: center; clear: both;">
+        <div style="display: inline-block; width: 300px;">
+            
+            {% if es_pdf %}
+                <img src="static/firmas/firma_jorge.png" alt="" style="max-height: 95px; display: block; margin: 0 auto -5px auto;">
+            {% else %}
+                <div style="height: 90px;"></div>
+            {% endif %}
+            
+            <hr style="border: none; border-top: 1px solid #000; margin: 0 0 8px 0; opacity: 1;">
+            
+            <p style="margin: 0; color: #555; font-size: 13px; font-weight: bold; letter-spacing: 0.5px;">Firma del Técnico</p>
+        </div>
     </div>
 
         <br>
