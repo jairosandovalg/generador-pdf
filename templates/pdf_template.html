@@ -409,6 +409,21 @@
 
     <br>
 
+    <div class="seccion-firma" style="margin-top: 50px; text-align: center;">
+        <div style="display: inline-block; width: 300px; border-top: 1px solid #000; padding-top: 8px;">
+            
+            {% if es_pdf %}
+                <img src="{{ url_root }}static/firmas/firma_jorge.png" alt="Firma Técnico" style="max-height: 80px; margin-bottom: -15px; display: block; margin-left: auto; margin-right: auto;">
+             Deal
+            {% else %}
+                <div style="height: 80px;"></div>
+            {% endif %}
+            
+            <p style="margin: 0; font-weight: bold; font-size: 14px;">{{ tecnico if tecnico else 'Jorge Pedrito Salazar' }}</p>
+            <p style="margin: 0; color: #555; font-size: 12px;">Firma del Técnico</p>
+        </div>
+    </div>
+  
     <div class="row">
         <div class="col-6">
             <label class="form-label fw-bold">Nombre Técnico</label>
@@ -435,20 +450,6 @@
 
 </div>
     
-<div class="seccion-firma" style="margin-top: 50px; text-align: center;">
-    <div style="display: inline-block; width: 300px; border-top: 1px solid #000; padding-top: 8px;">
-        
-        {% if es_pdf %}
-            <img src="{{ url_root }}static/firmas/firma_jorge.png" alt="Firma Técnico" style="max-height: 80px; margin-bottom: -15px; display: block; margin-left: auto; margin-right: auto;">
-         Deal
-        {% else %}
-            <div style="height: 80px;"></div>
-        {% endif %}
-        
-        <p style="margin: 0; font-weight: bold; font-size: 14px;">{{ tecnico if tecnico else 'Jorge Pedrito Salazar' }}</p>
-        <p style="margin: 0; color: #555; font-size: 12px;">Firma del Técnico</p>
-    </div>
-</div>
     
 </body>
 </html>
