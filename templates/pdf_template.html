@@ -44,7 +44,16 @@
         </div>
         <div class="col-3">
             <label class="form-label fw-bold">Placa</label>
-            {% if es_pdf %}<div class="valor-pdf">{{ placa }}</div>{% else %}<input type="text" name="placa" class="form-control" required>{% endif %}
+            {% if es_pdf %}<div class="valor-pdf">{{ placa }}</div>{% else %}<input type="text" name="placa" 
+                                                                                                class="form-control"
+                                                                                                minlength="6"
+                                                                                                maxlength="6" 
+                                                                                                pattern="\d{10}" 
+                                                                                                title="El número de orden debe tener exactamente 6 dígitos."
+                                                                                                inputmode="text" 
+                                                                                                oninput="this.value = this.value.replace(/[^0-9]/g, '');"                                                                                  
+                                                                                                required>
+            {% endif %}
         </div>
         <div class="col-3">
             <label class="form-label fw-bold">Modelo / Año</label>
