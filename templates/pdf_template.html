@@ -32,15 +32,15 @@
         <div class="col-3">
             <label class="form-label fw-bold">N° Orden</label>
             {% if es_pdf %}<div class="valor-pdf">{{ orden }}</div>{% else %}<input type="text" name="orden"
-                                                                                               class="form-control" 
-                                                                                               minlength="10"
-                                                                                               maxlength="10" 
-                                                                                               pattern="\d{10}" 
-                                                                                               title="El número de orden debe tener exactamente 10 dígitos."
-                                                                                               inputmode="numeric" 
-                                                                                               oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
-                                                                                               required>
-            required>{% endif %}
+                                                                                                class="form-control" 
+                                                                                                minlength="10"
+                                                                                                maxlength="10" 
+                                                                                                pattern="\d{10}" 
+                                                                                                title="El número de orden debe tener exactamente 10 dígitos."
+                                                                                                inputmode="numeric" 
+                                                                                                oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
+                                                                                                required>
+            {% endif %}
         </div>
         <div class="col-3">
             <label class="form-label fw-bold">Placa</label>
