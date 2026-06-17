@@ -56,17 +56,13 @@ def generar():
     print("-> PDF generado localmente en el servidor de Render.")
 
     # --- EXTRACCIÓN DE IDENTIFICADORES CLAVE ---
-    # Rescatamos los valores del formulario. Si vienen vacíos, les asignamos un valor por defecto.
+    # Rescatamos los valores del formulario para nombrar el archivo físico
     n_orden = datos.get('orden', 'SIN_ORDEN').strip()
     placa = datos.get('placa', 'SIN_PLACA').strip()
-    
-    # Capturamos el nombre del técnico. Si el input viene vacío, usamos "Jorge_Pedrito_Salazar" como ejemplo o defecto.
-    # Reemplazamos los espacios en blanco por guiones bajos para que la URL del archivo sea limpia y válida.
-    tecnico = datos.get('tecnico', 'Jorge Pedrito Salazar').strip().replace(" ", "_")
 
     # 4. AUTOMÁTICO: Subir el archivo PDF generado al Storage de Supabase
-    # Estructura del nombre: Orden_Placa_NombreTecnico.pdf
-    nombre_archivo_pdf = f"{n_orden}_{placa}_{tecnico}.pdf"
+    # Volvemos al formato limpio: Orden_Placa.pdf
+    nombre_archivo_pdf = f"{n_orden}_{placa}.pdf"
     
     url_publica = None
     try:
@@ -88,19 +84,20 @@ def generar():
     if url_publica:
         datos['url_pdf'] = url_publica
 
-    # 6. Intentamos guardar el diccionario completo (ahora incluye la URL del PDF) en Supabase
+    # 6. Intentamos guardar el diccionario completo en Supabase 
+    # (Aquí ya viaja el campo 'tecnico' con el valor que capturó del formulario)
     try:
         supabase.table("inspecciones").insert(datos).execute()
         print("¡Inspección y enlace de PDF guardados exitosamente en la base de datos de Supabase!")
     except Exception as e:
         print(f"Alerta: No se pudo registrar en la tabla de Supabase: {e}")
 
-    # 7. Devuelve el archivo para su descarga inmediata en la computadora o celular del técnico
+    # 7. Devuelve el archivo para su descarga inmediata con el nombre limpio solicitado
     return send_file(
         pdf_file.name,
         as_attachment=True,
-        download_name=f"{n_orden}_{placa}_{tecnico}.pdf"
+        download_name=f"{n_orden}_{placa}.pdf"
     )
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    append.run(debug=True)
