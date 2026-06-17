@@ -425,17 +425,18 @@
         </div>
     </div>
 
-<div class="seccion-firma" style="margin-top: 15px; text-align: center;">
-        <div style="display: inline-block; width: 300px; border-top: 1px solid #000; padding-top: 5px;">
+<div class="seccion-firma" style="margin-top: 30px; text-align: center; clear: both;">
+        <div style="display: inline-block; width: 300px; border-top: 1px solid #000; padding-top: 8px;">
             
             {% if es_pdf %}
-                <img src="{{ url_root }}static/firmas/firma_jorge.png" alt="Firma Técnico" style="max-height: 80px; margin-bottom: -15px; display: block; margin-left: auto; margin-right: auto;">
+                <img src="{{ url_root }}static/firmas/firma_jorge.png" alt="Firma Técnico" style="max-height: 70px; display: block; margin: 0 auto 5px auto;">
             {% else %}
-                <div style="height: 40px;"></div>
+                <div style="height: 50px;"></div>
             {% endif %}
             
             {# <p style="margin: 0; font-weight: bold; font-size: 14px;">{{ tecnico if tecnico else 'Jorge Pedrito Salazar' }}</p> #}
-            <p style="margin: 0; color: #555; font-size: 12px;">Firma del Técnico</p>
+            
+            <p style="margin: 0; color: #555; font-size: 13px; font-weight: bold; letter-spacing: 0.5px;">Firma del Técnico</p>
         </div>
     </div>
         
