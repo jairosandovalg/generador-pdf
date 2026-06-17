@@ -425,29 +425,26 @@
         </div>
     </div>
 
-<div class="seccion-firma" style="margin-top: 30px; text-align: center; clear: both;">
-        <div style="display: inline-block; width: 300px; border-top: 1px solid #000; padding-top: 8px;">
-            
-            {% if es_pdf %}
-                <img src="{{ url_root }}static/firmas/firma_jorge.png" alt="Firma Técnico" style="max-height: 70px; display: block; margin: 0 auto 5px auto;">
-            {% else %}
-                <div style="height: 50px;"></div>
-            {% endif %}
-            
-            {# <p style="margin: 0; font-weight: bold; font-size: 14px;">{{ tecnico if tecnico else 'Jorge Pedrito Salazar' }}</p> #}
-            
-            <p style="margin: 0; color: #555; font-size: 13px; font-weight: bold; letter-spacing: 0.5px;">Firma del Técnico</p>
+    <div class="seccion-firma" style="margin-top: 30px; text-align: center; clear: both;">
+            <div style="display: inline-block; width: 300px; border-top: 1px solid #000; padding-top: 8px;">
+                
+                {% if es_pdf %}
+                    <img src="{{ url_root }}static/firmas/firma_jorge.png" alt="Firma Técnico" style="max-height: 70px; display: block; margin: 0 auto 5px auto;">
+                {% else %}
+                    <div style="height: 40px;"></div>
+                {% endif %}
+                
+                <p style="margin: 0; color: #555; font-size: 13px; font-weight: bold; letter-spacing: 0.5px;">Firma del Técnico</p>
+            </div>
         </div>
-    </div>
-        
-    {% if not es_pdf %}
-        <div class="text-center mt-2">
-            <button type="submit" class="btn btn-success btn-lg px-5">Generar PDF</button>
-        </div>
-    {% endif %}
-
-    </form> 
+            
+        {% if not es_pdf %}
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-success btn-lg px-5">Generar PDF</button>
+            </div>
+        {% endif %}
     
+        </form> 
     </div>
     
 </body>
