@@ -39,9 +39,9 @@
         .sidebar .nav-link.active { border-left-color: #fff; }
         .brand-title { color: #fff; font-size: 16px; font-weight: bold; padding: 10px 20px; letter-spacing: 1px; border-bottom: 1px solid #333; margin-bottom: 20px; }
 
-        /* Tabla estructural para la cabecera en el PDF (Simula columnas perfectas) */
+        /* Tabla estructural para la cabecera en el PDF (Simula columnas de 25% de ancho) */
         .tabla-cabecera-pdf { width: 100%; margin-bottom: 15px; display: none; }
-        .tabla-cabecera-pdf td { padding: 6px; width: 20%; vertical-align: top; }
+        .tabla-cabecera-pdf td { padding: 6px; width: 25%; vertical-align: top; }
 
         /* REGLAS DE IMPRESIÓN PARA WEASYPRINT */
         @media print {
@@ -67,7 +67,9 @@
         
         {% if not es_pdf %}
         <div class="col-md-2 sidebar px-0">
-            <div class="brand-title text-center">PANEL</div>
+            <div class="brand-title text-center">
+                PANEL TÉCNICO
+            </div>
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <button class="nav-link active text-start vw-btn" id="v-pills-vw-tab" data-bs-toggle="pill" data-bs-target="#v-pills-vw" type="button" role="tab" aria-controls="v-pills-vw" aria-selected="true">
                     🚗 Pruebas Volkswagen
@@ -95,28 +97,33 @@
                                 <td><label class="fw-bold">Placa</label><div class="valor-pdf">{{ placa }}</div></td>
                                 <td><label class="fw-bold">Modelo / Año</label><div class="valor-pdf">{{ modelo }}</div></td>
                                 <td><label class="fw-bold">Motor</label><div class="valor-pdf">{{ motor }}</div></td>
-                                <td><label class="fw-bold">Km Prueba</label><div class="valor-pdf">{{ km }}</div></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top: 10px;"><label class="fw-bold">Km Prueba</label><div class="valor-pdf">{{ km }}</div></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </table>
 
                         <div class="row g-3 grilla-datos-web">
-                            <div class="col-md-2" style="width: 20%;">
+                            <div class="col-md-3">
                                 <label class="form-label fw-bold">N° Orden</label>
                                 <input type="text" name="orden" class="form-control" minlength="10" maxlength="10" pattern="\d{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
                             </div>
-                            <div class="col-md-2" style="width: 20%;">
+                            <div class="col-md-3">
                                 <label class="form-label fw-bold">Placa</label>
                                 <input type="text" name="placa" class="form-control" minlength="6" maxlength="6" pattern="^[A-Z0-9]{6}$" oninput="this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');" required>
                             </div>
-                            <div class="col-md-2" style="width: 20%;">
+                            <div class="col-md-3">
                                 <label class="form-label fw-bold">Modelo / Año</label>
                                 <input type="text" name="modelo" class="form-control" minlength="4" maxlength="4" pattern="\d{4}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
                             </div>
-                            <div class="col-md-2" style="width: 20%;">
+                            <div class="col-md-3">
                                 <label class="form-label fw-bold">Motor</label>
                                 <input type="text" name="motor" class="form-control" required>
                             </div>
-                            <div class="col-md-2" style="width: 20%;">
+                            <div class="col-md-3 mt-3">
                                 <label class="form-label fw-bold">Km Prueba</label>
                                 <input type="text" name="km" class="form-control" required>
                             </div>
@@ -462,28 +469,33 @@
                                 <td><label class="fw-bold">Placa</label><div class="valor-pdf">{{ placa }}</div></td>
                                 <td><label class="fw-bold">Modelo / Año</label><div class="valor-pdf">{{ modelo }}</div></td>
                                 <td><label class="fw-bold">Motor</label><div class="valor-pdf">{{ motor }}</div></td>
-                                <td><label class="fw-bold">Km Prueba</label><div class="valor-pdf">{{ km }}</div></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top: 10px;"><label class="fw-bold">Km Prueba</label><div class="valor-pdf">{{ km }}</div></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </table>
 
                         <div class="row g-3 grilla-datos-web">
-                            <div class="col-md-2" style="width: 20%;">
+                            <div class="col-md-3">
                                 <label class="form-label fw-bold">N° Orden</label>
                                 <input type="text" name="orden" class="form-control" minlength="10" maxlength="10" pattern="\d{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
                             </div>
-                            <div class="col-md-2" style="width: 20%;">
+                            <div class="col-md-3">
                                 <label class="form-label fw-bold">Placa</label>
                                 <input type="text" name="placa" class="form-control" minlength="6" maxlength="6" pattern="^[A-Z0-9]{6}$" oninput="this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');" required>
                             </div>
-                            <div class="col-md-2" style="width: 20%;">
+                            <div class="col-md-3">
                                 <label class="form-label fw-bold">Modelo / Año</label>
                                 <input type="text" name="modelo" class="form-control" minlength="4" maxlength="4" pattern="\d{4}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
                             </div>
-                            <div class="col-md-2" style="width: 20%;">
+                            <div class="col-md-3">
                                 <label class="form-label fw-bold">Motor</label>
                                 <input type="text" name="motor" class="form-control" required>
                             </div>
-                            <div class="col-md-2" style="width: 20%;">
+                            <div class="col-md-3 mt-3">
                                 <label class="form-label fw-bold">Km Prueba</label>
                                 <input type="text" name="km" class="form-control" required>
                             </div>
