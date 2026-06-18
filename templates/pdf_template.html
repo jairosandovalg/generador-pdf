@@ -251,7 +251,7 @@
                                     <td>Funcionamiento</td>
                                     <td style="text-align: center;">
                                         {% if es_pdf %}{% if datos_post and datos_post.get(name_val) == 'OK' %}✓{% endif %}
-                                        {% else %}<input type="radio" name="{{ name_val }}" value="OK" required>{% endif %}
+                                        {% else %}<input type="radio" name="{{ name_val }}" value="OK">{% endif %}
                                     </td>
                                     <td style="text-align: center;">
                                         {% if es_pdf %}{% if datos_post and datos_post.get(name_val) == 'NOK' %}✗{% endif %}
@@ -288,7 +288,7 @@
                                     <td>Funcionamiento</td>
                                     <td style="text-align: center;">
                                         {% if es_pdf %}{% if datos_post and datos_post.get(name_val) == 'OK' %}✓{% endif %}
-                                        {% else %}<input type="radio" name="{{ name_val }}" value="OK" required>{% endif %}
+                                        {% else %}<input type="radio" name="{{ name_val }}" value="OK">{% endif %}
                                     </td>
                                     <td style="text-align: center;">
                                         {% if es_pdf %}{% if datos_post and datos_post.get(name_val) == 'NOK' %}✗{% endif %}
