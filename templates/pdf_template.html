@@ -36,6 +36,18 @@
         .sidebar .nav-link:hover { color: #fff; background-color: rgba(255,255,255,0.05); }
         .sidebar .nav-link.active { border-left-color: #fff; }
         .brand-title { color: #fff; font-size: 16px; font-weight: bold; padding: 10px 20px; letter-spacing: 1px; border-bottom: 1px solid #333; margin-bottom: 20px; }
+
+        /* =====================================================================
+           💥 REGLAS CRÍTICAS PARA IMPRESIÓN / GENERACIÓN DE PDF 💥
+           ===================================================================== */
+        @media print {
+            body { background-color: #ffffff; }
+            .sidebar { display: none !important; } /* Oculta el menú lateral en el PDF */
+            .col-md-10 { width: 100% !important; flex: 0 0 100% !important; max-width: 100% !important; padding: 0 !important; }
+            .card { border: none !important; box-shadow: none !important; padding: 0 !important; background: transparent !important; }
+            /* Evita saltos de página huérfanos en las tablas */
+            tr { page-break-inside: avoid; break-inside: avoid; }
+        }
     </style>
 </head>
 <body>
@@ -43,6 +55,8 @@
 <div class="container-fluid">
     <div class="row">
         
+        <!-- SIDEBAR LATERAL (Solo se muestra en la Web, se oculta automáticamente en el PDF) -->
+        {% if not es_pdf %}
         <div class="col-md-2 sidebar px-0">
             <div class="brand-title text-center">
                 <span class="text-muted">PANEL</span> TÉCNICO
@@ -56,10 +70,15 @@
                 </button>
             </div>
         </div>
+        {% endif %}
 
-        <div class="col-md-10 p-4">
+        <!-- CONTENIDO PRINCIPAL -->
+        <div class="{% if es_pdf %}col-md-10 w-100{% else %}col-md-10{% endif %} p-4">
             <div class="tab-content" id="v-pills-tabContent">
                 
+                <!-- ==================== TAB VOLKSWAGEN ==================== -->
+                {# En modo PDF, solo renderiza esta sección si NO es una petición de Audi #}
+                {% if not es_pdf or (datos_post and not datos_post.get('ilum_exterior_audi') and not datos_post.get('observaciones_audi')) %}
                 <div class="tab-pane fade show active" id="v-pills-vw" role="tabpanel" aria-labelledby="v-pills-vw-tab">
                     <div class="card p-4 shadow-sm marca-vw">
                         <h2 class="text-center">PRUEBA DE RUTA VOLKSWAGEN</h2>
@@ -399,8 +418,12 @@
                         {% if not es_pdf %}</form>{% endif %}
                     </div>
                 </div>
+                {% endif %}
                 
-                <div class="tab-pane fade" id="v-pills-audi" role="tabpanel" aria-labelledby="v-pills-audi-tab">
+                <!-- ==================== TAB AUDI ==================== -->
+                {# En modo PDF, solo renderiza esta sección si SÍ es una petición de Audi #}
+                {% if not es_pdf or (datos_post and (datos_post.get('ilum_exterior_audi') or datos_post.get('observaciones_audi'))) %}
+                <div class="tab-pane fade {% if es_pdf %}show active{% endif %}" id="v-pills-audi" role="tabpanel" aria-labelledby="v-pills-audi-tab">
                     <div class="card p-4 shadow-sm marca-audi">
                         <h2 class="text-center">PRUEBA DE RUTA AUDI</h2>
                         
@@ -739,6 +762,7 @@
                         {% if not es_pdf %}</form>{% endif %}
                     </div>
                 </div>
+                {% endif %}
 
             </div>
         </div>
