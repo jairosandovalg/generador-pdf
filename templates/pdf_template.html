@@ -57,18 +57,6 @@
             
             tr { page-break-inside: avoid; break-inside: avoid; }
             h4 { page-break-after: avoid; break-after: avoid; }
-
-            /* FUERZA EL SALTO DE PÁGINA EXCLUSIVAMENTE PARA EL BLOQUE DE OBSERVACIONES EN EL PDF */
-            .contenedor-cierre-pdf {
-                page-break-before: always !important; /* Compatibilidad histórica */
-                break-before: page !important;        /* Soporte nativo WeasyPrint */
-            }
-            
-            /* Evita que los bloques de firmas y datos técnicos se rompan feamente de forma interna */
-            .contenedor-cierre-pdf table, .seccion-firma {
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
-            }
         }
     </style>
 </head>
@@ -415,47 +403,46 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                            
-                        <div class="contenedor-cierre-pdf">
-                            <h4>Observaciones Generales</h4>
-                            {% if es_pdf %}
-                                <div class="bloque-obs">{{ datos_post.get('observaciones_vw', '') if datos_post else '' }}</div>
-                            {% else %}
-                                <textarea name="observaciones_vw" rows="4" class="form-control"></textarea>
-                            {% endif %}
+                          
+                        <hr>
+                        <h4>Observaciones Generales</h4>
+                        {% if es_pdf %}
+                            <div class="bloque-obs">{{ datos_post.get('observaciones_vw', '') if datos_post else '' }}</div>
+                        {% else %}
+                            <textarea name="observaciones_vw" rows="4" class="form-control"></textarea>
+                        {% endif %}
 
-                            {% if es_pdf %}
-                            <table style="width: 100%; margin-top: 15px;">
-                                <tr>
-                                    <td style="width: 50%; padding-right: 10px;">
-                                        <label class="fw-bold">Nombre Técnico</label>
-                                        <div class="valor-pdf">{{ tecnico }}</div>
-                                    </td>
-                                    <td style="width: 50%; padding-left: 10px;">
-                                        <label class="fw-bold">Fecha</label>
-                                        <div class="valor-pdf">{{ fecha }}</div>
-                                    </td>
-                                </tr>
-                            </table>
-                            {% else %}
-                            <div class="row mt-4 grilla-datos-web">
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">Nombre Técnico</label>
-                                    <input type="text" name="tecnico" class="form-control" value="Alberto Cambana" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">Fecha</label>
-                                    <input type="date" name="fecha" class="form-control" value="{{ fecha }}" required>
-                                </div>
+                        {% if es_pdf %}
+                        <table style="width: 100%; margin-top: 15px;">
+                            <tr>
+                                <td style="width: 50%; padding-right: 10px;">
+                                    <label class="fw-bold">Nombre Técnico</label>
+                                    <div class="valor-pdf">{{ tecnico }}</div>
+                                </td>
+                                <td style="width: 50%; padding-left: 10px;">
+                                    <label class="fw-bold">Fecha</label>
+                                    <div class="valor-pdf">{{ fecha }}</div>
+                                </td>
+                            </tr>
+                        </table>
+                        {% else %}
+                        <div class="row mt-4 grilla-datos-web">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Nombre Técnico</label>
+                                <input type="text" name="tecnico" class="form-control" value="Alberto Cambana" required>
                             </div>
-                            {% endif %}
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Fecha</label>
+                                <input type="date" name="fecha" class="form-control" value="{{ fecha }}" required>
+                            </div>
+                        </div>
+                        {% endif %}
 
-                            <div class="seccion-firma text-center" style="margin-top: 35px;">
-                                <div style="display: inline-block; width: 280px;">
-                                    {% if es_pdf %}<img src="static/firmas/firma_jorge.png" alt="" style="max-height: 200px; display: block; margin: 0 auto -5px auto;">{% else %}<div style="height: 80px;"></div>{% endif %}
-                                    <hr style="border: none; border-top: 1px solid #000; margin: 0 0 6px 0; opacity: 1;">
-                                    <p style="margin: 0; color: #555; font-size: 13px; font-weight: bold;">Firma del Técnico</p>
-                                </div>
+                        <div class="seccion-firma text-center" style="margin-top: 35px;">
+                            <div style="display: inline-block; width: 280px;">
+                                {% if es_pdf %}<img src="static/firmas/firma_jorge.png" alt="" style="max-height: 200px; display: block; margin: 0 auto -5px auto;">{% else %}<div style="height: 80px;"></div>{% endif %}
+                                <hr style="border: none; border-top: 1px solid #000; margin: 0 0 6px 0; opacity: 1;">
+                                <p style="margin: 0; color: #555; font-size: 13px; font-weight: bold;">Firma del Técnico</p>
                             </div>
                         </div>
 
@@ -789,47 +776,45 @@
                             </tbody>
                         </table>
 
-                        <div class="contenedor-cierre-pdf">
-                            <hr>
-                            <h4>Observaciones Generales</h4>
-                            {% if es_pdf %}
-                                <div class="bloque-obs">{{ datos_post.get('observaciones_audi', '') if datos_post else '' }}</div>
-                            {% else %}
-                                <textarea name="observaciones_audi" rows="4" class="form-control"></textarea>
-                            {% endif %}
+                        <hr>
+                        <h4>Observaciones Generales</h4>
+                        {% if es_pdf %}
+                            <div class="bloque-obs">{{ datos_post.get('observaciones_audi', '') if datos_post else '' }}</div>
+                        {% else %}
+                            <textarea name="observaciones_audi" rows="4" class="form-control"></textarea>
+                        {% endif %}
 
-                            {% if es_pdf %}
-                            <table style="width: 100%; margin-top: 15px;">
-                                <tr>
-                                    <td style="width: 50%; padding-right: 10px;">
-                                        <label class="fw-bold">Nombre Técnico</label>
-                                        <div class="valor-pdf">{{ tecnico }}</div>
-                                    </td>
-                                    <td style="width: 50%; padding-left: 10px;">
-                                        <label class="fw-bold">Fecha</label>
-                                        <div class="valor-pdf">{{ fecha }}</div>
-                                    </td>
-                                </tr>
-                            </table>
-                            {% else %}
-                            <div class="row mt-4 grilla-datos-web">
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">Nombre Técnico</label>
-                                    <input type="text" name="tecnico" class="form-control" value="Alberto Cambana" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">Fecha</label>
-                                    <input type="date" name="fecha" class="form-control" value="{{ fecha }}" required>
-                                </div>
+                        {% if es_pdf %}
+                        <table style="width: 100%; margin-top: 15px;">
+                            <tr>
+                                <td style="width: 50%; padding-right: 10px;">
+                                    <label class="fw-bold">Nombre Técnico</label>
+                                    <div class="valor-pdf">{{ tecnico }}</div>
+                                </td>
+                                <td style="width: 50%; padding-left: 10px;">
+                                    <label class="fw-bold">Fecha</label>
+                                    <div class="valor-pdf">{{ fecha }}</div>
+                                </td>
+                            </tr>
+                        </table>
+                        {% else %}
+                        <div class="row mt-4 grilla-datos-web">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Nombre Técnico</label>
+                                <input type="text" name="tecnico" class="form-control" value="Alberto Cambana" required>
                             </div>
-                            {% endif %}
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Fecha</label>
+                                <input type="date" name="fecha" class="form-control" value="{{ fecha }}" required>
+                            </div>
+                        </div>
+                        {% endif %}
 
-                            <div class="seccion-firma text-center" style="margin-top: 35px;">
-                                <div style="display: inline-block; width: 280px;">
-                                    {% if es_pdf %}<img src="static/firmas/firma_jorge.png" alt="" style="max-height: 200px; display: block; margin: 0 auto -5px auto;">{% else %}<div style="height: 80px;"></div>{% endif %}
-                                    <hr style="border: none; border-top: 1px solid #000; margin: 0 0 6px 0; opacity: 1;">
-                                    <p style="margin: 0; color: #555; font-size: 13px; font-weight: bold;">Firma del Técnico</p>
-                                </div>
+                        <div class="seccion-firma text-center" style="margin-top: 35px;">
+                            <div style="display: inline-block; width: 280px;">
+                                {% if es_pdf %}<img src="static/firmas/firma_jorge.png" alt="" style="max-height: 200px; display: block; margin: 0 auto -5px auto;">{% else %}<div style="height: 80px;"></div>{% endif %}
+                                <hr style="border: none; border-top: 1px solid #000; margin: 0 0 6px 0; opacity: 1;">
+                                <p style="margin: 0; color: #555; font-size: 13px; font-weight: bold;">Firma del Técnico</p>
                             </div>
                         </div>
 
