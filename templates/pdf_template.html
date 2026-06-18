@@ -40,20 +40,53 @@
         .tabla-cabecera-pdf { width: 100%; margin-bottom: 15px; display: none; }
         .tabla-cabecera-pdf td { padding: 6px; width: 25%; vertical-align: top; }
         
-        /* REGLAS DE IMPRESIÓN PARA WEASYPRINT */
+        /* REGLAS DE IMPRESIÓN CORREGIDAS PARA WEASYPRINT */
         @media print {
-            body { background-color: #ffffff; font-size: 12px; height: auto !important; min-height: 0 !important; }
+            body { 
+                background-color: #ffffff; 
+                font-size: 11px; /* Bajamos un punto para asegurar una mejor distribución en A4 */
+                height: auto !important; 
+                min-height: 0 !important; 
+                margin: 0;
+                padding: 0;
+            }
+            
             .sidebar { display: none !important; } 
             .col-md-10 { width: 100% !important; flex: 0 0 100% !important; max-width: 100% !important; padding: 0 !important; }
             .card { border: none !important; box-shadow: none !important; padding: 0 !important; background: transparent !important; display: block !important; float: none !important; }
             .tab-content, .tab-pane { display: block !important; opacity: 1 !important; overflow: visible !important; height: auto !important; }
             .grilla-datos-web { display: none !important; }
+            
             .tabla-cabecera-pdf { display: table !important; width: 100% !important; table-layout: fixed; }
-            .table { display: table !important; page-break-inside: avoid; break-inside: avoid; }
+            
+            /* Permitimos que las tablas fluyan de forma natural entre páginas */
+            .table { display: table !important; page-break-inside: auto !important; break-inside: auto !important; }
             tr { page-break-inside: avoid; break-inside: avoid; }
             h4 { page-break-after: avoid; break-after: avoid; }
-            .contenedor-cierre-pdf { page-break-before: always !important; break-before: page !important; display: block !important; position: relative !important; page-break-inside: avoid; break-inside: avoid; }
-            .contenedor-cierre-pdf table, .seccion-firma { page-break-inside: avoid !important; break-inside: avoid !important; display: table !important; width: 100% !important; }
+            
+            /* CORRECCIÓN CRÍTICA: Quitamos el 'always' para que el cierre aparezca inmediatamente después de las tablas */
+            .contenedor-cierre-pdf { 
+                page-break-before: auto !important; 
+                break-before: auto !important; 
+                display: block !important; 
+                position: relative !important; 
+                page-break-inside: avoid; /* Evita que la firma se separe de su título si cae al final */
+                break-inside: avoid;
+                margin-top: 20px; /* Separación prudente del bloque anterior */
+            }
+            
+            .contenedor-cierre-pdf table { 
+                display: table !important; 
+                width: 100% !important; 
+            }
+            
+            /* Aseguramos que la sección de firmas no se rompa a la mitad */
+            .seccion-firma { 
+                page-break-inside: avoid !important; 
+                break-inside: avoid !important; 
+                display: block !important;
+                margin-top: 30px;
+            }
         }
     </style>
 </head>
