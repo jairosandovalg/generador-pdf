@@ -235,7 +235,7 @@
                                         {% else %}<input type="radio" name="{{ name_val }}" value="OK" required>{% endif %}
                                     </td>
                                     <td style="text-align: center;">
-                                        {% if es_pdf %}{% if datos_post protect and datos_post.get(name_val) == 'NOK' %}✗{% endif %}
+                                        {% if es_pdf %}{% if datos_post and datos_post.get(name_val) == 'NOK' %}✗{% endif %}
                                         {% else %}<input type="radio" name="{{ name_val }}" value="NOK">{% endif %}
                                     </td>
                                     <td>
