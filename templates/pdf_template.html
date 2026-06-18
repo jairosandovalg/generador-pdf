@@ -39,25 +39,22 @@
         .sidebar .nav-link.active { border-left-color: #fff; }
         .brand-title { color: #fff; font-size: 16px; font-weight: bold; padding: 10px 20px; letter-spacing: 1px; border-bottom: 1px solid #333; margin-bottom: 20px; }
 
-        /* Tabla especial para la cabecera en el PDF (Simula las columnas de la Web) */
+        /* Tabla estructural para la cabecera en el PDF (Simula columnas perfectas) */
         .tabla-cabecera-pdf { width: 100%; margin-bottom: 15px; display: none; }
         .tabla-cabecera-pdf td { padding: 6px; width: 20%; vertical-align: top; }
 
-        /* =====================================================================
-           💥 REGLAS CRÍTICAS PARA QUE EL PDF SEA IDÉNTICO A LA WEB 💥
-           ===================================================================== */
+        /* REGLAS DE IMPRESIÓN PARA WEASYPRINT */
         @media print {
             body { background-color: #ffffff; font-size: 12px; }
             .sidebar { display: none !important; } 
             .col-md-10 { width: 100% !important; flex: 0 0 100% !important; max-width: 100% !important; padding: 0 !important; }
             .card { border: none !important; box-shadow: none !important; padding: 0 !important; background: transparent !important; }
             
-            /* Ocultamos la grilla inestable de Bootstrap en el PDF */
+            /* Oculta la grilla de Bootstrap que se desalinea en el PDF */
             .grilla-datos-web { display: none !important; }
-            /* Mostramos la tabla estructural que fuerza la alineación horizontal rígida */
+            /* Muestra la tabla rígida que fuerza la distribución horizontal */
             .tabla-cabecera-pdf { display: table !important; width: 100% !important; table-layout: fixed; }
             
-            /* Evita saltos de página huérfanos innecesarios */
             tr { page-break-inside: avoid; break-inside: avoid; }
             h4 { page-break-after: avoid; break-after: avoid; }
         }
@@ -678,4 +675,155 @@
                                     </td>
                                     <td style="text-align: center;">
                                         {% if es_pdf %}{% if datos_post and datos_post.get(name_val) == 'NOK' %}✗{% endif %}
-                                        {% else %}<input type
+                                        {% else %}<input type="radio" name="{{ name_val }}" value="NOK">{% endif %}
+                                    </td>
+                                    <td>
+                                        {% if es_pdf %}{{ datos_post.get(name_sol, '') if datos_post else '' }}
+                                        {% else %}<input type="text" name="{{ name_sol }}" class="form-control">{% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <h4>6. SISTEMA DE FRENOS</h4>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Elemento</th>
+                                    <th>Estado</th>
+                                    <th style="text-align: center; width: 8%;">OK</th>
+                                    <th style="text-align: center; width: 8%;">NOK</th>
+                                    <th>Solución</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% set elementos_frenos_audi = [
+                                    ('ABS test', 'abs_test_audi', 'solucion_abs_test_audi'),
+                                    ('Desviación al frenar / vibración / eficiencia', 'desviacion_freno_audi', 'solucion_desviacion_freno_audi'),
+                                    ('Ruidos (Chirrido, silbido, etc)', 'ruidos_freno_audi', 'solucion_ruidos_freno_audi')
+                                ] %}
+                                {% for item, name_val, name_sol in elementos_frenos_audi %}
+                                <tr>
+                                    <td>{{ item }}</td>
+                                    <td>Funcionamiento</td>
+                                    <td style="text-align: center;">
+                                        {% if es_pdf %}{% if datos_post and datos_post.get(name_val) == 'OK' %}✓{% endif %}
+                                        {% else %}<input type="radio" name="{{ name_val }}" value="OK" required>{% endif %}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        {% if es_pdf %}{% if datos_post and datos_post.get(name_val) == 'NOK' %}✗{% endif %}
+                                        {% else %}<input type="radio" name="{{ name_val }}" value="NOK">{% endif %}
+                                    </td>
+                                    <td>
+                                        {% if es_pdf %}{{ datos_post.get(name_sol, '') if datos_post else '' }}
+                                        {% else %}<input type="text" name="{{ name_sol }}" class="form-control">{% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <h4>7. DIRECCIÓN Y SUSPENSIÓN</h4>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Elemento</th>
+                                    <th>Estado</th>
+                                    <th style="text-align: center; width: 8%;">OK</th>
+                                    <th style="text-align: center; width: 8%;">NOK</th>
+                                    <th>Solución</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% set elementos_direccion_suspension_audi = [
+                                    ('Regulación de altura (allroad/A8/A5 etc.) funcionamiento (opcional)', 'regulacion_altura_audi', 'solucion_regulacion_altura_audi'),
+                                    ('Vibración, juego de timón, ruido de palieres', 'vibracion_timon_audi', 'solucion_vibracion_timon_audi'),
+                                    ('Ruidos o zumbidos de rodamiento de ruedas / terminales o brazos de suspensión', 'ruidos_rodamiento_audi', 'solucion_ruidos_rodamiento_audi'),
+                                    ('Timón alineado estando las ruedas en posición recta', 'timon_alineado_audi', 'solucion_timon_alineado_audi'),
+                                    ('El vehículo jala al lado', 'vehiculo_jala_audi', 'solucion_vehiculo_jala_audi'),
+                                    ('Alineamiento necesario', 'alineamiento_nec_audi', 'solucion_alineamiento_nec_audi'),
+                                    ('Balancear las ruedas necesario', 'balanceo_nec_audi', 'solucion_balanceo_nec_audi')
+                                ] %}
+                                {% for item, name_val, name_sol in elementos_direccion_suspension_audi %}
+                                <tr>
+                                    <td>{{ item }}</td>
+                                    <td>Funcionamiento</td>
+                                    <td style="text-align: center;">
+                                        {% if es_pdf %}{% if datos_post and datos_post.get(name_val) == 'OK' %}✓{% endif %}
+                                        {% else %}<input type="radio" name="{{ name_val }}" value="OK" required>{% endif %}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        {% if es_pdf %}{% if datos_post and datos_post.get(name_val) == 'NOK' %}✗{% endif %}
+                                        {% else %}<input type="radio" name="{{ name_val }}" value="NOK">{% endif %}
+                                    </td>
+                                    <td>
+                                        {% if es_pdf %}{{ datos_post.get(name_sol, '') if datos_post else '' }}
+                                        {% else %}<input type="text" name="{{ name_sol }}" class="form-control">{% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <hr>
+                        <h4>Observaciones Generales</h4>
+                        {% if es_pdf %}
+                            <div class="bloque-obs">{{ datos_post.get('observaciones_audi', '') if datos_post else '' }}</div>
+                        {% else %}
+                            <textarea name="observaciones_audi" rows="4" class="form-control"></textarea>
+                        {% endif %}
+
+                        {% if es_pdf %}
+                        <table style="width: 100%; margin-top: 15px;">
+                            <tr>
+                                <td style="width: 50%; padding-right: 10px;">
+                                    <label class="fw-bold">Nombre Técnico</label>
+                                    <div class="valor-pdf">{{ tecnico }}</div>
+                                </td>
+                                <td style="width: 50%; padding-left: 10px;">
+                                    <label class="fw-bold">Fecha</label>
+                                    <div class="valor-pdf">{{ fecha }}</div>
+                                </td>
+                            </tr>
+                        </table>
+                        {% else %}
+                        <div class="row mt-4 grilla-datos-web">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Nombre Técnico</label>
+                                <input type="text" name="tecnico" class="form-control" value="Alberto Cambana" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Fecha</label>
+                                <input type="date" name="fecha" class="form-control" value="{{ fecha }}" required>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="seccion-firma text-center" style="margin-top: 35px;">
+                            <div style="display: inline-block; width: 280px;">
+                                {% if es_pdf %}<img src="static/firmas/firma_jorge.png" alt="" style="max-height: 200px; display: block; margin: 0 auto -5px auto;">{% else %}<div style="height: 80px;"></div>{% endif %}
+                                <hr style="border: none; border-top: 1px solid #000; margin: 0 0 6px 0; opacity: 1;">
+                                <p style="margin: 0; color: #555; font-size: 13px; font-weight: bold;">Firma del Técnico</p>
+                            </div>
+                        </div>
+
+                        {% if not es_pdf %}
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-dark btn-lg px-5">Generar PDF Audi</button>
+                            </div>
+                        {% endif %}
+                        {% if not es_pdf %}</form>{% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
