@@ -1,3 +1,9 @@
+"""
+PROYECTO: [Nombre del Proyecto/API]
+ÁREA ORIGEN: Postventa
+DESCRIPCIÓN: Este script inicializa el servidor backend que gestiona [mencionar brevemente qué hace, ej: los endpoints de datos / el modelo predictivo].
+INSTRUCCIONES: Las rutas y configuraciones deben añadirse debajo de la instancia de 'app'.
+"""
 
 from flask import Flask, render_template, request, send_file
 from datetime import datetime
