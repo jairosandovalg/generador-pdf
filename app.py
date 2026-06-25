@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request, send_file
 from datetime import datetime
 from weasyprint import HTML
@@ -6,6 +7,7 @@ import tempfile
 import traceback
 from supabase import create_client, Client
 
+# '__name__' le indica a Flask dónde buscar recursos como plantillas (templates) y archivos estáticos.
 app = Flask(__name__)
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "TU_SUPABASE_URL_AQUI")
