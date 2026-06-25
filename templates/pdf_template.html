@@ -50,11 +50,19 @@
         .tabla-cabecera-pdf { width: 100%; margin-bottom: 15px; display: none; }
         .tabla-cabecera-pdf td { padding: 6px; width: 25%; vertical-align: top; }
         
-        /* REGLAS DE IMPRESIÓN CORREGIDAS PARA WEASYPRINT */
+        /*******************************************************************************
+         * ⚠️ ÁREA DE EDICIÓN EXCLUSIVA PARA EL REPORTE PDF (WEASYPRINT)
+         * * ¿QUÉ HACE ESTO?: Todo lo que esté aquí adentro controla el tamaño de letra,
+         * márgenes, saltos de página y visualización ÚNICAMENTE cuando se descarga el PDF.
+         * * INSTRUCCIONES PARA MODIFICACIONES:
+         * - Para cambiar el tamaño de letra del PDF: Modificar 'font-size' en 'body'.
+         * - Para cambiar los márgenes de la hoja A4: Modificar 'margin' en '@page'.
+         * - NOTA: Los cambios aquí NO afectarán cómo se ve la aplicación en la web.
+         *******************************************************************************/
         @media print {
             body { 
                 background-color: #ffffff; 
-                font-size: 10px; /* Bajamos un punto para asegurar una mejor distribución en A4 */
+                font-size: 10px; 
                 height: auto !important; 
                 min-height: 0 !important; 
                 margin: 0;
