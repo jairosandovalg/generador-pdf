@@ -5,6 +5,7 @@ DESCRIPCIÓN: Este script inicializa el servidor backend que gestiona [mencionar
 INSTRUCCIONES: Las rutas y configuraciones deben añadirse debajo de la instancia de 'app'.
 """
 
+#Flask es un microframework que permite el balance entre velocidad del desarrollo y control arquitectónico
 from flask import Flask, render_template, request, send_file
 from datetime import datetime
 from weasyprint import HTML
