@@ -92,9 +92,13 @@
             
             /* Aseguramos que la sección de firmas no se rompa a la mitad */
             .seccion-firma { 
+                /* Sintaxis antigua/compatible para motores de PDF: Evita que el contenedor se rompa entre páginas */
                 page-break-inside: avoid !important; 
+                /* Estándar moderno de la W3C: Refuerza la instrucción de no dividir este bloque a la mitad */
                 break-inside: avoid !important; 
+                /* Fuerza a que este elemento se comporte como un bloque sólido completo */
                 display: block !important;
+                /* Le da un espacio de separación prudente (30 píxeles) respecto al contenido de arriba */
                 margin-top: 30px;
             }
         }
