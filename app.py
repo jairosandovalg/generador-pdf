@@ -22,9 +22,13 @@ SUPABASE_URL = os.environ.get("SUPABASE_URL", "TU_SUPABASE_URL_AQUI")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "TU_SUPABASE_ANON_KEY_AQUI")
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-#@app.route conecta la web con el código python (Routing)
+"""
+@app.route conecta la web con el código python (Routing)
+"""
 
-@app.route('/')
+@app.route('/') #Define que esta función responderá cuando se acceda a la raíz del sitio web.                                    
+
+
 def home():
     fecha_hoy = datetime.now().strftime('%Y-%m-%d')
     # Enviamos marca='audi' por defecto para la primera carga web
