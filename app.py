@@ -1,5 +1,5 @@
 """
-PROYECTO: [Nombre del Proyecto/API]
+PROYECTO: Prueba de ruta
 ÁREA ORIGEN: Postventa
 DESCRIPCIÓN: Este script inicializa el servidor backend que gestiona [mencionar brevemente qué hace, ej: los endpoints de datos / el modelo predictivo].
 INSTRUCCIONES: Las rutas y configuraciones deben añadirse debajo de la instancia de 'app'.
