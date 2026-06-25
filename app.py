@@ -54,7 +54,9 @@ def procesar_inspeccion(sufijo_marca):
         motor=datos_html.get('motor', ''),
         km=datos_html.get('km', ''),
         tecnico=datos_html.get('tecnico', ''),
-        fecha=datos_html.get('fecha', '')
+        fecha=datos_html.get('fecha', ''),
+        km_inicial = request.form.get('km_inicial') 
+        km_final = request.form.get('km_final')     
     )
 
     pdf_file = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
