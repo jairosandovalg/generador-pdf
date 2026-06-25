@@ -142,11 +142,11 @@
                                 <td><label class="fw-bold">Motor</label><div class="valor-pdf">{{ motor }}</div></td>
                             </tr>
                             <tr>
-                                <td style="padding-top: 10px;"><label class="fw-bold">Km Inicial</label><div class="valor-pdf">{{ km }}</div></td>
+                                <td style="padding-top: 10px;"><label class="fw-bold">Km Inicial</label><div class="valor-pdf">{{ km_inicial }}</div></td>
                                 <td></td><td></td><td></td>
                             </tr>
                             <tr>
-                                <td style="padding-top: 10px;"><label class="fw-bold">Km Final</label><div class="valor-pdf">{{ km }}</div></td>
+                                <td style="padding-top: 10px;"><label class="fw-bold">Km Final</label><div class="valor-pdf">{{ km_final }}</div></td>
                                 <td></td><td></td><td></td>
                             </tr>                          
                         </table>
@@ -169,8 +169,12 @@
                                 <input type="text" name="motor" class="form-control" required>
                             </div>
                             <div class="col-md-3 mt-3">
-                                <label class="form-label fw-bold">Km Prueba</label>
-                                <input type="text" name="km" class="form-control" required>
+                                <label class="form-label fw-bold">Km Inicial</label>
+                                <input type="number" name="km_inicial" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
+                            </div>
+                            <div class="col-md-3 mt-3">
+                                <label class="form-label fw-bold">Km Final</label>
+                                <input type="number" name="km_final" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
                             </div>
                         </div>
 
