@@ -25,7 +25,6 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 """
 @app.route conecta la web con el código python (Routing)
 """
-
 @app.route('/') #Define que esta función responderá cuando se acceda a la raíz del sitio web.                                    
 def home():     #Define la función "vista" (view function) que procesa la lógica de la página principal.      
     fecha_hoy = datetime.now().strftime('%Y-%m-%d')
