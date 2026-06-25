@@ -704,7 +704,7 @@
                                     </td>
                                     <td>
                                         {% if es_pdf %}{{ datos_post.get(name_sol, '') if datos_post else '' }}
-                                        |{% else %}<input type="text" name="{{ name_sol }}" class="form-control">{% endif %}
+                                        {% else %}<input type="text" name="{{ name_sol }}" class="form-control">{% endif %}
                                     </td>
                                 </tr>
                                 {% endfor %}
