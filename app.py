@@ -28,7 +28,7 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 @app.route('/') #Define que esta función responderá cuando se acceda a la raíz del sitio web.                                    
 def home():     #Define la función "vista" (view function) que procesa la lógica de la página principal.      
     fecha_hoy = datetime.now().strftime('%Y-%m-%d')
-    # Enviamos marca='audi' por defecto para la primera carga web
+    #Renderiza la plantilla HTML y le inyecta variables dinámicas.
     return render_template('pdf_template.html', es_pdf=False, fecha=fecha_hoy, marca='audi')
 
 # --- FUNCIÓN INTERNA PROCESADORA (REFACTORIZADA) ---
