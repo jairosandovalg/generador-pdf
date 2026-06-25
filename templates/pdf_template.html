@@ -127,7 +127,10 @@
 
         <div class="{% if es_pdf %}col-md-10 w-100{% else %}col-md-10{% endif %} p-4">
             <div class="tab-content" id="v-pills-tabContent">
-                
+{# ========================================================================================================================================================= #}
+{# 🚗 SECCIÓN: FORMULARIO Y REPORTE AUDI                                                                                                                     #}
+{# ========================================================================================================================================================= #}    
+              
                 {% if not es_pdf or marca == 'audi' %}
                 <div class="tab-pane fade show active" id="v-pills-audi" role="tabpanel" aria-labelledby="v-pills-audi-tab">
                     <div class="card p-4 shadow-sm marca-audi">
@@ -483,7 +486,7 @@
                 </div>
                 {% endif %}
 {# ========================================================================================================================================================= #}
-{# 🚗 SECCIÓN EXCLUSIVA: FORMULARIO Y REPORTE VOLKSWAGEN                     =                                                                              #}
+{# 🚗 SECCIÓ: FORMULARIO Y REPORTE VOLKSWAGEN                     =                                                                                          #}
 {# ========================================================================================================================================================= #}     
                 {% if not es_pdf or marca == 'vw' %}
                 <div class="tab-pane fade {% if es_pdf or marca == 'vw' %}show active{% endif %}" id="v-pills-vw" role="tabpanel" aria-labelledby="v-pills-vw-tab">
