@@ -3,6 +3,7 @@ PROYECTO: Prueba de ruta
 ÁREA ORIGEN: Postventa
 DESCRIPCIÓN: Este script inicializa el servidor backend que gestiona [mencionar brevemente qué hace, ej: los endpoints de datos / el modelo predictivo].
 INSTRUCCIONES: Las rutas y configuraciones deben añadirse debajo de la instancia de 'app'.
+LINK: https://generador-pdf-formulario.onrender.com/
 """
 
 #Flask es un microframework que permite el balance entre velocidad del desarrollo y control arquitectónico
