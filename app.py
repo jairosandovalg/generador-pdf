@@ -121,7 +121,6 @@ def procesar_inspeccion(sufijo_marca):
     # Envía el archivo PDF binario al navegador del cliente forzando la descarga nativa
     return send_file(pdf_file.name, as_attachment=True, download_name=f"{n_orden}_{placa}.pdf")
 
-
 # --- RUTA ENDPOINT PARA AUDI ---
 @app.route('/generar-audi', methods=['POST'])
 def generar_audi():
@@ -130,7 +129,6 @@ def generar_audi():
     except Exception as e:
         return f"<h1>Error Interno (Ruta Audi):</h1><pre>{traceback.format_exc()}</pre>", 500
 
-
 # --- RUTA ENDPOINT PARA VOLKSWAGEN ---
 @app.route('/generar-vw', methods=['POST'])
 def generar_vw():
@@ -138,7 +136,6 @@ def generar_vw():
         return procesar_inspeccion(sufijo_marca='vw')
     except Exception as e:
         return f"<h1>Error Interno (Ruta VW):</h1><pre>{traceback.format_exc()}</pre>", 500
-
 
 if __name__ == '__main__':
     app.run(debug=True)
