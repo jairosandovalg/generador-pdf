@@ -1,7 +1,8 @@
 """
 PROYECTO: Prueba de ruta
 ÁREA ORIGEN: Postventa
-DESCRIPCIÓN: Este script inicializa el servidor backend que gestiona los formularios técnicos de inspección para Audi y Volkswagen, procesa los datos en tiempo real, los persiste en Supabase y renderiza los reportes físicos en PDF mediante WeasyPrint.
+DESCRIPCIÓN: Este script inicializa el servidor backend que gestiona los formularios técnicos de inspección para Audi y Volkswagen, procesa los datos en tiempo real,
+            los persiste en Supabase y renderiza los reportes físicos en PDF mediante WeasyPrint.
 INSTRUCCIONES: Las rutas y configuraciones deben añadirse debajo de la instancia de 'app'.
 LINK: https://generador-pdf-formulario.onrender.com/
 """
