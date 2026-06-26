@@ -143,5 +143,11 @@ def generar_vw():
     except Exception as e:
         return f"<h1>Error Interno (Ruta VW):</h1><pre>{traceback.format_exc()}</pre>", 500
 
+# =========================================================================
+# PUNTO DE ARRANQUE DE LA APLICACIÓN
+# Este bloque asegura que el servidor web solo se encienda si ejecutamos 
+# este archivo directamente. El modo 'debug=True' permite ver errores en 
+# tiempo real y que el sistema se reinicie solo al hacer cambios.
+# =========================================================================
 if __name__ == '__main__':
     app.run(debug=True)
