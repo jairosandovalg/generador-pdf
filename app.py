@@ -127,7 +127,11 @@ def procesar_inspeccion(sufijo_marca):
     # Envía el archivo PDF binario al navegador del cliente forzando la descarga nativa
     return send_file(pdf_file.name, as_attachment=True, download_name=f"{n_orden}_{placa}.pdf")
 
-# --- RUTA ENDPOINT PARA AUDI ---
+#===========================================================================
+# RUTA ENDPOINT PARA AUDI
+#
+#
+#===========================================================================
 @app.route('/generar-audi', methods=['POST'])
 def generar_audi():
     try:
