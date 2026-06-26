@@ -101,9 +101,11 @@ def procesar_inspeccion(sufijo_marca):
         print(f"-> PDF subido al Storage. URL: {url_publica}")
     except Exception as e:
         print(f"Alerta Storage: No se pudo subir: {e}")
-
+                
+    #===========================================================================================================        
     # TRADUCCIÓN DE DATOS QUITANDO SUFIJOS PARA EL INSERT DE LA BASE DE DATOS
     # Transforma 'ilum_exterior_audi' o 'ilum_exterior_vw' en 'ilum_exterior' dinámicamente para la tabla común.
+    #===========================================================================================================
     datos_para_supabase = {}
     for clave, valor in datos_html.items():
         if clave.endswith(f'_{sufijo_marca}'):
