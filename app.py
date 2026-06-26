@@ -73,8 +73,9 @@ def procesar_inspeccion(sufijo_marca):
         fecha=datos_html.get('fecha', '')
     )
 
-#---GENERACIÓN DEL PDF---       
+    #==================================================================================              
     # Generación física del archivo binario PDF en el directorio temporal del servidor
+    #==================================================================================        
     pdf_file = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
     HTML(string=html, base_url=os.path.dirname(os.path.abspath(__file__))).write_pdf(pdf_file.name)
     print(f"-> PDF de {sufijo_marca.upper()} generado localmente.")
@@ -84,8 +85,10 @@ def procesar_inspeccion(sufijo_marca):
     
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     nombre_archivo_pdf = f"{n_orden}_{placa}_{timestamp}.pdf"
-    
+
+    #====================================================================================        
     # Subida automatizada del reporte PDF al Storage Bucket de Supabase
+    #====================================================================================        
     url_publica = None
     try:
         with open(pdf_file.name, 'rb') as archivo_pdf:
