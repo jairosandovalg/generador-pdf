@@ -18,7 +18,6 @@ from supabase import create_client, Client
 # '__name__' le indica a Flask dónde buscar recursos como plantillas (templates) y archivos estáticos.
 app = Flask(__name__)
 
-
 # -------------------------------------------------------------------------
 # CONEXIÓN CON LA BASE DE DATOS (SUPABASE)
 # Se cargan las credenciales de seguridad del entorno y se inicializa el 
