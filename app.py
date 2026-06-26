@@ -67,8 +67,8 @@ def procesar_inspeccion(sufijo_marca):
         modelo=datos_html.get('modelo', ''),
         motor=datos_html.get('motor', ''),
         # Enviamos las dos nuevas variables dinámicas al HTML para el dibujo del PDF
-        km_inicial=datos_html.get('km_inicial', 0), # <--- NUEVO
-        km_final=datos_html.get('km_final', 0),     # <--- NUEVO
+        km_inicial=datos_html.get('km_inicial', 0), 
+        km_final=datos_html.get('km_final', 0),     
         tecnico=datos_html.get('tecnico', ''),
         fecha=datos_html.get('fecha', '')
     )
