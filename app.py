@@ -44,7 +44,6 @@ def procesar_inspeccion(sufijo_marca):
 
     # =========================================================================
     # ⚙️ CONTROL DE CAMBIOS: ACTUALIZACIÓN DE MÉTRICAS DE KILOMETRAJE
-    # Eliminamos la antigua lógica de 'km' único y casteamos de forma segura los nuevos inputs numéricos.
     # =========================================================================
     for campo in ['km_inicial', 'km_final']:
         if campo in datos_html and datos_html[campo]:
