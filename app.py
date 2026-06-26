@@ -73,6 +73,7 @@ def procesar_inspeccion(sufijo_marca):
         fecha=datos_html.get('fecha', '')
     )
 
+#---GENERACIÓN DEL PDF---       
     # Generación física del archivo binario PDF en el directorio temporal del servidor
     pdf_file = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
     HTML(string=html, base_url=os.path.dirname(os.path.abspath(__file__))).write_pdf(pdf_file.name)
