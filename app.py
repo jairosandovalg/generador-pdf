@@ -128,11 +128,12 @@ def procesar_inspeccion(sufijo_marca):
     return send_file(pdf_file.name, as_attachment=True, download_name=f"{n_orden}_{placa}.pdf")
 
 #===========================================================================
-# RUTA ENDPOINT PARA AUDI
 #
 #POST indica que esta ruta está diseñada para recibir y procesar información, no solo para mostrar una página vacía.
 #{traceback.format_exc()} permite ver el error 
 #===========================================================================
+
+# --- RUTA ENDPOINT PARA AUDI ---
 @app.route('/generar-audi', methods=['POST'])
 def generar_audi():
     try:
