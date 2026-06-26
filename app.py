@@ -149,5 +149,5 @@ def generar_vw():
 # este archivo directamente. El modo 'debug=True' permite ver errores en 
 # tiempo real y que el sistema se reinicie solo al hacer cambios.
 # =========================================================================
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == '__main__': #Valida: "¿El usuario ejecutó este archivo directamente?"
+    app.run(debug=True)    #Enciende el servidor web en "Modo Desarrollo" (Debug) 
