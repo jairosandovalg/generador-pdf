@@ -130,7 +130,8 @@ def procesar_inspeccion(sufijo_marca):
 #===========================================================================
 # RUTA ENDPOINT PARA AUDI
 #
-#
+#POST indica que esta ruta está diseñada para recibir y procesar información, no solo para mostrar una página vacía.
+#{traceback.format_exc()} permite ver el error 
 #===========================================================================
 @app.route('/generar-audi', methods=['POST'])
 def generar_audi():
