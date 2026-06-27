@@ -43,11 +43,6 @@ def procesar_inspeccion(sufijo_marca):
     # Obtiene todos los campos del formulario HTML como un diccionario de Python
     datos_html = request.form.to_dict()
 
-# --- FUNCIÓN INTERNA PROCESADORA (MÓDULO CENTRAL CORE) ---
-def procesar_inspeccion(sufijo_marca):
-    # Obtiene todos los campos del formulario HTML como un diccionario de Python
-    datos_html = request.form.to_dict()
-
     # =========================================================================
     # ⚙️ CONTROL DE CAMBIOS: ACTUALIZACIÓN DE MÉTRICAS DE KILOMETRAJE
     # =========================================================================
@@ -60,12 +55,6 @@ def procesar_inspeccion(sufijo_marca):
         else:
             datos_html[campo] = 0
 
-    # =========================================================================
-    # 🛠️ NUEVO: OBTENER RUTA ABSOLUTA DEL LOGO PARA EL GENERADOR DE PDF (WEASYPRINT)
-    # =========================================================================
-    # Esto obtiene la ubicación exacta en el disco duro, ej: /opt/render/project/src/static/firmas/logo_audi.png
-    ruta_absoluta_logo = os.path.join(app.root_path, 'static', 'firmas', f'logo_{sufijo_marca}.png')
-
     # Forzamos la inyección limpia de variables estructurales hacia Jinja2
     html = render_template(
         'pdf_template.html',
@@ -73,7 +62,6 @@ def procesar_inspeccion(sufijo_marca):
         marca=sufijo_marca, 
         datos_post=datos_html,
         url_root=request.url_root,
-        ruta_logo_audi=ruta_absoluta_logo, # <-- NUEVO: Enviamos la ruta física al HTML
         orden=datos_html.get('orden', ''),
         placa=datos_html.get('placa', ''),
         modelo=datos_html.get('modelo', ''),
@@ -85,11 +73,10 @@ def procesar_inspeccion(sufijo_marca):
         fecha=datos_html.get('fecha', '')
     )
 
-    #==================================================================================        
+    #==================================================================================              
     # Generación física del archivo binario PDF en el directorio temporal del servidor
     #==================================================================================        
     pdf_file = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
-    # Nota: Mantenemos el base_url para que WeasyPrint sepa dónde resolver recursos relativos secundarios
     HTML(string=html, base_url=os.path.dirname(os.path.abspath(__file__))).write_pdf(pdf_file.name)
     print(f"-> PDF de {sufijo_marca.upper()} generado localmente.")
 
