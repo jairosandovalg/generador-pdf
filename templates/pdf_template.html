@@ -130,32 +130,55 @@
             <div class="tab-content" id="v-pills-tabContent">
 {# ========================================================================================================================================================= #}
 {# 🚗 SECCIÓN: FORMULARIO Y REPORTE AUDI                                                                                                                     #}
-{# ========================================================================================================================================================= #}  
+{# ========================================================================================================================================================= #}    
               
-                        {% if not es_pdf %}
-                        <div class="row align-items-center mb-4 grilla-datos-web">
-                            <div class="col-3 text-start">
-                                <img src="/static/firmas/logo_audi.png" alt="Logo Audi" style="max-height: 50px; width: auto;">
-                            </div>
-                            <div class="col-6 text-center">
-                                <h2 class="m-0">PRUEBA DE RUTA AUDI</h2>
-                            </div>
-                            <div class="col-3"></div>
-                        </div>
-                        {% else %}
-                        <table style="width: 100%; margin-bottom: 20px; border-collapse: collapse; border: none;">
+                {% if not es_pdf or marca == 'audi' %}
+                <div class="tab-pane fade show active" id="v-pills-audi" role="tabpanel" aria-labelledby="v-pills-audi-tab">
+                    <div class="card p-4 shadow-sm marca-audi">
+                        <h2 class="text-center">PRUEBA DE RUTA AUDI</h2>
+                        {% if not es_pdf %}<form action="/generar-audi" method="POST">{% endif %}
+                        
+                        <table class="tabla-cabecera-pdf">
                             <tr>
-                                <td style="width: 25%; text-align: left; vertical-align: middle; border: none;">
-                                    <img src="{{ ruta_logo_audi }}" alt="Logo Audi" style="max-height: 50px; width: auto;">
-                                </td>
-                                <td style="width: 50%; text-align: center; vertical-align: middle; border: none;">
-                                    <h2 style="margin: 0; font-size: 24px; font-family: sans-serif; font-weight: bold;">PRUEBA DE RUTA AUDI</h2>
-                                </td>
-                                <td style="width: 25%; border: none;"></td>
+                                <td><label class="fw-bold">N° Orden</label><div class="valor-pdf">{{ orden }}</div></td>
+                                <td><label class="fw-bold">Placa</label><div class="valor-pdf">{{ placa }}</div></td>
+                                <td><label class="fw-bold">Modelo / Año</label><div class="valor-pdf">{{ modelo }}</div></td>
+                                <td><label class="fw-bold">Motor</label><div class="valor-pdf">{{ motor }}</div></td>
                             </tr>
+                            <tr>
+                                <td style="padding-top: 10px;"><label class="fw-bold">Km Inicial</label><div class="valor-pdf">{{ km_inicial }}</div></td>                             
+                                <td style="padding-top: 10px;"><label class="fw-bold">Km Final</label><div class="valor-pdf">{{ km_final }}</div></td>
+                                <td></td> <td></td>
+                            </tr>                          
                         </table>
-                        {% endif %}
- 
+
+                        <div class="row g-3 grilla-datos-web">
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">N° Orden</label>
+                                <input type="text" name="orden" class="form-control" minlength="10" maxlength="10" pattern="\d{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Placa</label>
+                                <input type="text" name="placa" class="form-control" minlength="6" maxlength="6" pattern="^[A-Z0-9]{6}$" oninput="this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Modelo / Año</label>
+                                <input type="text" name="modelo" class="form-control" minlength="4" maxlength="4" pattern="\d{4}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Motor</label>
+                                <input type="text" name="motor" class="form-control" required>
+                            </div>
+                            <div class="col-md-3 mt-3">
+                                <label class="form-label fw-bold">Km Inicial</label>
+                                <input type="number" name="km_inicial" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
+                            </div>
+                            <div class="col-md-3 mt-3">
+                                <label class="form-label fw-bold">Km Final</label>
+                                <input type="number" name="km_final" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
+                            </div>
+                        </div>
+
                         <h4>1. ILUMINACIÓN</h4>
                         <table class="table table-bordered">
                             <thead>
