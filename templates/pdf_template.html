@@ -130,15 +130,12 @@
             <div class="tab-content" id="v-pills-tabContent">
 {# ========================================================================================================================================================= #}
 {# 🚗 SECCIÓN: FORMULARIO Y REPORTE AUDI                                                                                                                     #}
-{# ========================================================================================================================================================= #}    
+{# ========================================================================================================================================================= #}  
               
-                {% if not es_pdf or marca == 'audi' %}
-                <div class="tab-pane fade show active" id="v-pills-audi" role="tabpanel" aria-labelledby="v-pills-audi-tab">
-                    <div class="card p-4 shadow-sm marca-audi">
-                        
                         {% if not es_pdf %}
-                        <div class="col-3 text-start">
-                            <img src="/static/firmas/logo_audi.png" alt="Logo Audi" style="max-height: 50px; width: auto;">
+                        <div class="row align-items-center mb-4 grilla-datos-web">
+                            <div class="col-3 text-start">
+                                <img src="/static/firmas/logo_audi.png" alt="Logo Audi" style="max-height: 50px; width: auto;">
                             </div>
                             <div class="col-6 text-center">
                                 <h2 class="m-0">PRUEBA DE RUTA AUDI</h2>
@@ -146,51 +143,51 @@
                             <div class="col-3"></div>
                         </div>
                         {% else %}
-                        <h2 class="text-center">PRUEBA DE RUTA AUDI</h2>
-                        {% endif %}
-                
-                        {% if not es_pdf %}<form action="/generar-audi" method="POST">{% endif %}
-                        
-                        <table class="tabla-cabecera-pdf">
+                        <table style="width: 100%; margin-bottom: 20px; border-collapse: collapse; border: none;">
                             <tr>
-                                <td><label class="fw-bold">N° Orden</label><div class="valor-pdf">{{ orden }}</div></td>
-                                <td><label class="fw-bold">Placa</label><div class="valor-pdf">{{ placa }}</div></td>
-                                <td><label class="fw-bold">Modelo / Año</label><div class="valor-pdf">{{ modelo }}</div></td>
-                                <td><label class="fw-bold">Motor</label><div class="valor-pdf">{{ motor }}</div></td>
+                                <td style="width: 25%; text-align: left; vertical-align: middle; border: none;">
+                                    <img src="{{ ruta_logo_audi }}" alt="Logo Audi" style="max-height: 50px; width: auto;">
+                                </td>
+                                <td style="width: 50%; text-align: center; vertical-align: middle; border: none;">
+                                    <h2 style="margin: 0; font-size: 24px; font-family: sans-serif; font-weight: bold;">PRUEBA DE RUTA AUDI</h2>
+                                </td>
+                                <td style="width: 25%; border: none;"></td>
                             </tr>
-                            <tr>
-                                <td style="padding-top: 10px;"><label class="fw-bold">Km Inicial</label><div class="valor-pdf">{{ km_inicial }}</div></td>                             
-                                <td style="padding-top: 10px;"><label class="fw-bold">Km Final</label><div class="valor-pdf">{{ km_final }}</div></td>
-                                <td></td> <td></td>
-                            </tr>                          
                         </table>
-
-                        <div class="row g-3 grilla-datos-web">
-                            <div class="col-md-3">
-                                <label class="form-label fw-bold">N° Orden</label>
-                                <input type="text" name="orden" class="form-control" minlength="10" maxlength="10" pattern="\d{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label fw-bold">Placa</label>
-                                <input type="text" name="placa" class="form-control" minlength="6" maxlength="6" pattern="^[A-Z0-9]{6}$" oninput="this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');" required>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label fw-bold">Modelo / Año</label>
-                                <input type="text" name="modelo" class="form-control" minlength="4" maxlength="4" pattern="\d{4}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label fw-bold">Motor</label>
-                                <input type="text" name="motor" class="form-control" required>
-                            </div>
-                            <div class="col-md-3 mt-3">
-                                <label class="form-label fw-bold">Km Inicial</label>
-                                <input type="number" name="km_inicial" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
-                            </div>
-                            <div class="col-md-3 mt-3">
-                                <label class="form-label fw-bold">Km Final</label>
-                                <input type="number" name="km_final" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required>
-                            </div>
-                        </div>
+                        {% endif %}
+                        <h4>1. ILUMINACIÓN</h4>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Elemento</th><th>Estado</th>
+                                    <th style="text-align: center; width: 8%;">OK</th><th style="text-align: center; width: 8%;">NOK</th>
+                                    <th>Solución</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% set elementos_iluminacion_audi = [
+                                    ('Exterior', 'ilum_exterior_audi', 'solucion_ilum_exterior_audi'),
+                                    ('Interior / tapasol / guantera, etc.', 'ilum_interior_audi', 'solucion_ilum_interior_audi')
+                                ] %}
+                                {% for item, name_val, name_sol in elementos_iluminacion_audi %}
+                                <tr>
+                                    <td>{{ item }}</td><td>Funcionamiento</td>
+                                    <td style="text-align: center;">
+                                        {% if es_pdf %}{% if datos_post and datos_post.get(name_val) == 'OK' %}✓{% endif %}
+                                        {% else %}<input type="radio" name="{{ name_val }}" value="OK" required>{% endif %}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        {% if es_pdf %}{% if datos_post and datos_post.get(name_val) == 'NOK' %}✗{% endif %}
+                                        {% else %}<input type="radio" name="{{ name_val }}" value="NOK">{% endif %}
+                                    </td>
+                                    <td>
+                                        {% if es_pdf %}{{ datos_post.get(name_sol, '') if datos_post else '' }}
+                                        {% else %}<input type="text" name="{{ name_sol }}" class="form-control">{% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
 
                         <h4>1. ILUMINACIÓN</h4>
                         <table class="table table-bordered">
