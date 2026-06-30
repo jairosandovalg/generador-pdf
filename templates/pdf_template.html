@@ -9,6 +9,26 @@
   - Remove.bg:  https://www.remove.bg
 #}
 
+{#
+Para agregar imagenes al momento de descargar el pdf, se hace con 
+    {% if es_pdf %}
+        <img src="static/firmas/firma_cliente.png" style="max-height: 150px;">
+    {% endif %}
+Para agregar imagenes a la pagina web, se hace con 
+    Busca la línea original de la firma:
+    {% if es_pdf %}<img src="static/firmas/logo_audi.png" alt="" style="max-height: 200px; display: block; margin: 0 auto -5px auto;">{% else %}<div style="height: 80px;"></div>{% endif %}
+    Y reemplázala simplemente por la etiqueta de la imagen limpia (sin el if ni el else):
+    <img src="static/firmas/logo_audi.png" alt="Firma Técnico" style="max-height: 200px; display: block; margin: 0 auto -5px auto;">
+
+Para agregar imagenes a la pagina web, pero que no aparezca en el pdf
+    {% if es_pdf %}
+        <div style="height: 80px;"></div>
+    {% else %}
+        <img src="static/firmas/logo_audi.png" alt="Firma Técnico" style="max-height: 200px; display: block; margin: 0 auto -5px auto;">
+    {% endif %}
+
+#}
+
 <!DOCTYPE html> {#Indicarle al navegador web la versión de HTML(W3C) se está utilizando para que pueda renderizar la página.#} 
 <html lang="es">
 <head>
