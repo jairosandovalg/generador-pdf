@@ -55,7 +55,11 @@ def procesar_inspeccion(sufijo_marca):
         else:
             datos_html[campo] = 0
 
+    #=====================================================================        
     # Forzamos la inyección limpia de variables estructurales hacia Jinja2
+    # Al asignar es_pdf=True, le da la orden al archivo HTML (pdf_template.html) de activar la condicional {% if es_pdf %}
+    # Gracias a esto, el código HTML resultante incluye formalmente la etiqueta <img> con la ruta de la firma del logo de Audi.        
+    #=====================================================================        
     html = render_template(
         'pdf_template.html',
         es_pdf=True,
