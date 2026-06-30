@@ -165,7 +165,10 @@ Para agregar imagenes a la pagina web, pero que no aparezca en el pdf
                 {% if not es_pdf or marca == 'audi' %}
                 <div class="tab-pane fade show active" id="v-pills-audi" role="tabpanel" aria-labelledby="v-pills-audi-tab">
                     <div class="card p-4 shadow-sm marca-audi">
-                        <h2 class="text-center">PRUEBA DE RUTA AUDI</h2>
+                        <div class="d-flex align-items-center justify-content-center mb-4">
+                          <img src="static/firmas/logo_audi.png" alt="Logo Audi" style="max-height: 50px; margin-right: 15px;">
+                          <h2 class="m-0" style="text-transform: uppercase; font-weight: bold; color: #0A0A0A;">PRUEBA DE RUTA AUDI</h2>
+                        </div>
                         {% if not es_pdf %}<form action="/generar-audi" method="POST">{% endif %}
                         
                         <table class="tabla-cabecera-pdf">
