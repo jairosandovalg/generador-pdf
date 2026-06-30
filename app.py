@@ -81,6 +81,11 @@ def procesar_inspeccion(sufijo_marca):
     # Generación física del archivo binario PDF en el directorio temporal del servidor
     #==================================================================================        
     pdf_file = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+    #--------------------------------------------------------------------------------------------------------------------------        
+    #La librería WeasyPrint (invocada aquí como HTML(...).write_pdf(...)) lee todo el código HTML generado en el paso anterior.
+    #Al encontrar la etiqueta de la imagen, WeasyPrint busca el archivo físico en el servidor (usando la carpeta del script como guía gracias al base_url) y
+    #plasma los píxeles de la firma directamente dentro del archivo binario del PDF.
+    #----------------------------------------------------------------------------------------------------------------------------        
     HTML(string=html, base_url=os.path.dirname(os.path.abspath(__file__))).write_pdf(pdf_file.name)
     print(f"-> PDF de {sufijo_marca.upper()} generado localmente.")
 
