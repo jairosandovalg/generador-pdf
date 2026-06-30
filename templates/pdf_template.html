@@ -10,9 +10,15 @@
 #}
 
 {#
+NOTA: a cerca de {% if es_pdf %}
+es_pdf = True (Al descargar PDF)
 
+para el caso del else:
 {% else %}: Significa "De lo contrario...". Se activa únicamente cuando la condición principal (es_pdf) es falsa
 (es decir, cuando el usuario está navegando normalmente en la página web y no ha descargado el PDF).
+
+Es un bloque invisible, una caja vacía que mide exactamente 80 píxeles de altura (height: 80px;).
+<div style="height: 80px;"></div>: 
 -------------------------------------------------------------------------------------------------------------------
 Para agregar imagenes al momento de descargar el pdf, se hace con 
     {% if es_pdf %}
