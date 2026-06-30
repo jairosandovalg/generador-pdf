@@ -10,6 +10,10 @@
 #}
 
 {#
+
+{% else %}: Significa "De lo contrario...". Se activa únicamente cuando la condición principal (es_pdf) es falsa
+(es decir, cuando el usuario está navegando normalmente en la página web y no ha descargado el PDF).
+-------------------------------------------------------------------------------------------------------------------
 Para agregar imagenes al momento de descargar el pdf, se hace con 
     {% if es_pdf %}
         <img src="static/firmas/firma_cliente.png" style="max-height: 150px;">
